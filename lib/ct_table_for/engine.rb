@@ -2,9 +2,9 @@ module CtTableFor
   class Engine < ::Rails::Engine
     isolate_namespace CtTableFor
     paths["app"]
-  end
-end
 
-ActiveSupport.on_load(:action_view) do
-  include CtTableFor::ApplicationHelper
+    config.to_prepare do
+      ApplicationController.helper(CtTableFor::ApplicationHelper)
+    end
+  end
 end

@@ -73,7 +73,7 @@ module CtTableFor
         else
           html << %Q{<tr>}
             html << %Q{<td colspan=#{options[:attributes].size + 1}>}
-              html << tmsg("no_records")
+              html << I18n.t("table_for.messages.no_records")
             html << %Q{</td>}
           html << %Q{</tr>}
         end
