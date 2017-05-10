@@ -1,19 +1,8 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
-@import "include_media";
+$table-for-breakpoint: <%= CtTableFor.table_for_breakpoint %> !default;
 
-$breakpoints: (desktop: 992px);
-
-.ct-table {
-}
-@include media(">=desktop") {
-  // table as a table
-}
-@include media("<desktop") {
+@media (max-width: $table-for-breakpoint) {
   // table as cards
-  .ct-table {
+  .table-for {
 		thead {
 			display: none;
       visibility: hidden;

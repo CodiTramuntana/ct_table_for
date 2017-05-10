@@ -1,18 +1,20 @@
 # Rails Responsive Table
 
-**Rails Responsive Table** is a rails table builder for an ActiveRecord collection.
+**[Rails Responsive Table](https://github.com/CodiTramuntana/ct_table_for)** is a rails table builder for an ActiveRecord collection.
 
-## Requirements
+## Optional gems
 
-* Twitter Bootstrap 3.0+
-* Fontawesome
-* include media
+* [Bootstrap](http://getbootstrap.com/)
+* [Font Awesome](http://fontawesome.io/)
+* [Ransack](https://github.com/activerecord-hackery/ransack)
+* [Paperclip](https://github.com/thoughtbot/paperclip)
+* [CanCanCan](https://github.com/CanCanCommunity/cancancan)
 
 ## Installation
 
 Add it to your Gemfile:
 
-`gem 'ct_table_for', '~> 0.1.6'`
+`gem 'ct_table_for', '~> 0.1.8'`
 
 Then:
 
@@ -39,6 +41,27 @@ To get started, just use the `table_for_for` helper. Here's an example:
 ```erb
 <%= table_for Model, @collection %>
 ```
+
+### Customizing
+
+Create config variables in your app's /config/initializers/ct_table_for.rb
+
+```ruby
+CtTableFor.setup do |config|
+  config.table_for_wrapper_default_class = "table-responsive"
+  config.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
+  config.table_for_breakpoint = "992px" # or could be done by sass
+  config.table_for_icon_font = "fa"
+  config.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash"}
+end
+```
+You can also define the breakpoint in your `sass` before importing `table_for`:
+
+```sass
+$table-for-breakpoint: 768px;
+@import "table_for"
+``` 
+
 
 ## Development
 

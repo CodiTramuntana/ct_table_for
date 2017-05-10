@@ -23,8 +23,8 @@ module CtTableFor
 
     def table_for model, collection, options: {}
       custom_id = options[:id].present? ? %Q{id="#{options[:id]}"} : ""
-      html = %Q{<div class="table-responsive">}
-        html << %Q{<table #{custom_id} class="ct-table table table-striped table-bordered table-condensed table-hover #{options[:class]}">}
+      html = %Q{<div class="table-for-wrapper #{CtTableFor.table_for_wrapper_default_class}">}
+        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.table_for_default_class} #{options[:class]}">}
           html << table_for_header(model, has_actions: options[:actions].present?, options: options)
           html << table_for_content(model, collection, options: options)
         html << %Q{</table>}
@@ -43,10 +43,10 @@ module CtTableFor
           table_for_attributes(model, options).each do |attribute|
             html << %Q{<th>}
               attribute, *params = attribute.split(":")
-              html << if params.include? "sortable"
+              html << if defined?(Ransack) and params.include? "sortable"
                 sort_link(@q, attribute, I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
               else
-                I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize
+                model.human_attribute_name("#{attribute}").capitalize
               end
             html << %Q{</th>}
           end
@@ -65,7 +65,7 @@ module CtTableFor
             html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_tr_class}>}
               table_for_attributes(model, options).each do |attribute|
                 attribute, *params = attribute.split(":")
-                html << table_for_cell( record, attribute, cell_options: params )
+                html << table_for_cell( model, record, attribute, cell_options: params )
               end
               html << table_for_actions( record, options: options) if options[:actions].present?
             html << %Q{</tr>}
@@ -81,26 +81,33 @@ module CtTableFor
       html.html_safe
     end
 
-    def table_for_cell record, attribute, cell_options: {}
+    def table_for_cell model, record, attribute, cell_options: {}
       html = ""
       value = record.try(attribute.to_sym)
 
-      html << %Q{<td data-title="#{I18n.t(attribute.to_s, scope: [:activerecord, :attributes, record.class.to_s]).capitalize}">}
+      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}").capitalize}">}
         case value
         when NilClass
           html << %Q{<i class="fa fa-asterisk text-muted"></i>}
         when TrueClass, FalseClass
           html << %Q{<i class="fa #{value ? "fa-check text-success" : "fa-times text-danger"}"></i>}
         when Numeric
-          html << %Q{<code>#{value}</code>}
-        when Time
+          if cell_options.include? "currency"
+            html << number_to_currency(value)
+          else
+            html << %Q{<code>#{value}</code>}
+          end
+        when ActiveSupport::TimeWithZone
           # TODO: value.in_time_zone
           html << %Q{<code>#{value.strftime("%d/%m/%Y %H:%M:%S")}</code>}
+        when Time
+          # TODO: value.in_time_zone
+          html << %Q{<code>#{value.strftime("%H:%M:%S")}</code>}
         when ActiveRecord::Base
           if cell_options.present?
            html << %Q{#{value.send cell_options[0]}}
           else 
-            html << "."
+            html << %{#{(value.try(:title) || value.try(:name))}}
           end
         when ActiveRecord::Associations::CollectionProxy
           html << %Q{#{value.count}}
@@ -132,23 +139,33 @@ module CtTableFor
       html << %Q{<td>}
         html << %Q{<div class="btn-group btn-group-sm" role="group" aria-label="#{I18n.t(:actions, scope: [:table_for]).capitalize}">}
         nesting = (options[:actions][:premodel] || []) + [record]
-        options[:actions][:buttons].each do |action|
+        buttons, *btn_options = options[:actions][:buttons].split(":")
+        buttons.each do |action|
           return "" if defined?(CanCanCan) and cannot?(action, record)
           label = I18n.t(action.to_sym, scope: [:table_for, :buttons]).capitalize
           case action.to_sym
           when :show
-            label = icon :eye unless options[:actions][:icons] == false
-            html << link_to(label, polymorphic_path(nesting), class: "btn btn-primary btn-sm")
+            if options[:actions][:icons] != false
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:show]}"></i>} 
+            end
+            html << link_to(label.html_safe, polymorphic_path(nesting), class: "btn btn-primary btn-sm")
           when :edit
-            label = icon :pencil unless options[:actions][:icons] == false
-            html << link_to(label, edit_polymorphic_path(nesting), class: "btn btn-success btn-sm")
+            if options[:actions][:icons] != false
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:edit]}"></i>} 
+            end
+            html << link_to(label.html_safe, edit_polymorphic_path(nesting), class: "btn btn-success btn-sm")
           when :destroy
-            label = icon :times unless options[:actions][:icons] == false
-            html << link_to(label, polymorphic_path(nesting),
+            if options[:actions][:icons] != false
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:destroy]}"></i>} 
+            end
+            html << link_to(label.html_safe, polymorphic_path(nesting),
                     method: :delete, class: "btn btn-danger btn-sm",
                     data: { confirm: I18n.t('are_you_sure').capitalize })
           else
-            ""
+            # TODO:
+            # nesting_custom = nesting + btn_options[0]
+            # label = icon CtTableFor.table_for_action_icons[:custom] if options[:actions][:icons] != false and defined?(FontAwesome)
+            # html << link_to(label, polymorphic_path(nesting_custom), class: "btn btn-default btn-sm")
           end
         end
         html << %Q{</div>}

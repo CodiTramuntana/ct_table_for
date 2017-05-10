@@ -13,12 +13,9 @@ Gem::Specification.new do |s|
   s.summary     = "Rails table builder that makes it easy to do responsive tables ActiveRecord"
   s.description = "table_for is a rails table builder given an ActiveRecord"
   s.license     = "MIT"
-    
+
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 5.0"
-  s.add_dependency "bootstrap-sass", "~> 3.3"
-  s.add_dependency "font-awesome-sass", "~> 4.7"
-  s.add_dependency "include_media_rails", "~> 1.4"
 end
