@@ -46,7 +46,7 @@ module CtTableFor
               html << if defined?(Ransack) and params.include? "sortable"
                 sort_link(@q, attribute, I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
               else
-                model.human_attribute_name("#{attribute}").capitalize
+                model.human_attribute_name("#{attribute}")
               end
             html << %Q{</th>}
           end
@@ -85,7 +85,7 @@ module CtTableFor
       html = ""
       value = record.try(attribute.to_sym)
 
-      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}").capitalize}">}
+      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}">}
         case value
         when NilClass
           html << %Q{<i class="fa fa-asterisk text-muted"></i>}

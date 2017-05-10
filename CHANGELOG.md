@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.9.beta to be released
+
+- removed `.capitalize` from `human_attribute_name("#{attribute}")`
+
+
 ## version 0.1.8.beta
 
 - added Changelog.md
