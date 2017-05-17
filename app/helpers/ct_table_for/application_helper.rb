@@ -1,12 +1,12 @@
 module CtTableFor
   module ApplicationHelper
     require 'uri'
-    
+
     ####################################################################################
     # RWD Table
     # use as: table_for Model, @collection, options: {}
     # options: {
-    #   actions: { 
+    #   actions: {
     #     buttons: %w(show, edit)},          // Hash: with array of buttons for actions
     #     premodel: [:bo, :admin],           // Array: of symbols for nested namespaces/models
     #     icons: true                        // Boolean: if true show actions as icons
@@ -94,6 +94,8 @@ module CtTableFor
         when Numeric
           if cell_options.include? "currency"
             html << number_to_currency(value)
+          elsif cell_options.include? "percent"
+            html << number_to_percentage(value, precision: 2)  
           else
             html << %Q{<code>#{value}</code>}
           end
@@ -106,7 +108,7 @@ module CtTableFor
         when ActiveRecord::Base
           if cell_options.present?
            html << %Q{#{value.send cell_options[0]}}
-          else 
+          else
             html << %{#{(value.try(:title) || value.try(:name))}}
           end
         when ActiveRecord::Associations::CollectionProxy
@@ -146,17 +148,17 @@ module CtTableFor
           case action.to_sym
           when :show
             if options[:actions][:icons] != false
-              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:show]}"></i>} 
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:show]}"></i>}
             end
             html << link_to(label.html_safe, polymorphic_path(nesting), class: "btn btn-primary btn-sm")
           when :edit
             if options[:actions][:icons] != false
-              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:edit]}"></i>} 
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:edit]}"></i>}
             end
             html << link_to(label.html_safe, edit_polymorphic_path(nesting), class: "btn btn-success btn-sm")
           when :destroy
             if options[:actions][:icons] != false
-              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:destroy]}"></i>} 
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:destroy]}"></i>}
             end
             html << link_to(label.html_safe, polymorphic_path(nesting),
                     method: :delete, class: "btn btn-danger btn-sm",
