@@ -1,5 +1,7 @@
 # Rails Responsive Table
 
+[![Gem Version](https://badge.fury.io/rb/ct_table_for.svg)](https://badge.fury.io/rb/ct_table_for)
+
 **[Rails Responsive Table](https://github.com/CodiTramuntana/ct_table_for)** is a rails table builder for an ActiveRecord collection.
 
 ## Optional gems
@@ -14,7 +16,7 @@
 
 Add it to your Gemfile:
 
-`gem 'ct_table_for', '~> 0.1.8'`
+`gem 'ct_table_for'`
 
 Then:
 
