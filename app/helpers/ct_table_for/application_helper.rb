@@ -95,7 +95,7 @@ module CtTableFor
           if cell_options.include? "currency"
             html << number_to_currency(value)
           elsif cell_options.include? "percent"
-            html << number_to_percentage(value, precision: 2)  
+            html << number_to_percentage(value, precision: CtTableFor.table_for_numeric_percent_precision)
           else
             html << %Q{<code>#{value}</code>}
           end
@@ -116,7 +116,7 @@ module CtTableFor
         else
           if uri?(value)
             html << link_to(value, value)
-          elsif defined?(PaperClip) and record.is_a?(PaperClip::Attachment)
+          elsif defined?(Paperclip) and record.is_a?(Paperclip::Attachment)
             html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
           else
             html << value.to_s.truncate(50, separator: " ")
