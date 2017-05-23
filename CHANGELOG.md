@@ -5,6 +5,7 @@
 - removed `.capitalize` from `human_attribute_name("#{attribute}")`
 - added `percentage numeric_type cell` with `configurable precision decimals`
 - changed `PaperClip class defintion` with `Paperclip class defintion`
+- added `setting image class` with `configurable class`
 
 ## version 0.1.8.beta
 

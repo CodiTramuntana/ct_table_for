@@ -94,8 +94,8 @@ module CtTableFor
         when Numeric
           if cell_options.include? "currency"
             html << number_to_currency(value)
-          elsif cell_options.include? "percent"
-            html << number_to_percentage(value, precision: CtTableFor.table_for_numeric_percent_precision)
+          elsif cell_options.include? "percentage"
+            html << number_to_percentage(value, precision: CtTableFor.table_for_numeric_percentage_precision)
           else
             html << %Q{<code>#{value}</code>}
           end
@@ -116,7 +116,7 @@ module CtTableFor
         else
           if uri?(value)
             html << link_to(value, value)
-          elsif defined?(Paperclip) and record.is_a?(Paperclip::Attachment)
+          elsif defined?(Paperclip) and value.is_a?(Paperclip::Attachment)
             html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
           else
             html << value.to_s.truncate(50, separator: " ")
@@ -130,7 +130,7 @@ module CtTableFor
       html = ""
       size = cell_options.select{ |opt| ["thumb", "original", "small", "medium"].include? opt }.first || "thumb"
 
-      html << image_tag(record.send(attribute).url(size), class: 'img-fluid', style: "max-height: 100px;")
+      html << image_tag(record.send(attribute).url(size), class: CtTableFor.table_for_numeric_percent_precision, style: "max-height: 100px;")
       html.html_safe
     end
 

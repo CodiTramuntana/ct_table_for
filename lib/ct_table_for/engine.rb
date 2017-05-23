@@ -5,15 +5,16 @@ module CtTableFor
     mattr_accessor :table_for_breakpoint
     mattr_accessor :table_for_icon_font_base_class
     mattr_accessor :table_for_action_icons
-    mattr_accessor :table_for_numeric_percent_precision
+    mattr_accessor :table_for_numeric_percentage_precision
+    mattr_accessor :table_for_cell_for_image_image_class
 
     self.table_for_wrapper_default_class = "table-responsive"
     self.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
     self.table_for_breakpoint = "992px"
     self.table_for_icon_font_base_class = "fa"
     self.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash", custom: "gear"}
-    self.table_for_numeric_percent_precision = 2
-
+    self.table_for_numeric_percentage_precision = 2
+    self.table_for_cell_for_image_image_class = "img-responsive"
   end
 
   # this function maps the vars from your app into your engine

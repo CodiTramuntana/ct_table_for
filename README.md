@@ -53,7 +53,8 @@ CtTableFor.setup do |config|
   config.table_for_breakpoint = "992px" # or could be done by sass
   config.table_for_icon_font = "fa"
   config.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash"}
-  config.table_for_numeric_percent_precision = 2
+  config.table_for_numeric_percentage_precision = 2
+  config.table_for_cell_for_image_image_class = "img-responsive"
 
 end
 ```
