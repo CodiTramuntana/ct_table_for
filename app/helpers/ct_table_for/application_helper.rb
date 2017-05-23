@@ -130,7 +130,7 @@ module CtTableFor
       html = ""
       size = cell_options.select{ |opt| ["thumb", "original", "small", "medium"].include? opt }.first || "thumb"
 
-      html << image_tag(record.send(attribute).url(size), class: CtTableFor.table_for_numeric_percent_precision, style: "max-height: 100px;")
+      html << image_tag(record.send(attribute).url(size), class: CtTableFor.table_for_cell_for_image_image_class, style: "max-height: 100px;")
       html.html_safe
     end
 

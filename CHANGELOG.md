@@ -1,8 +1,12 @@
 # Changelog
 
-## 0.1.10.beta to be released
+## version 0.1.11.beta to be released
 
 - ...
+
+## version 0.1.10.beta
+
+- fix table_for_cell_for_image_image_class in helper
 
 ## version 0.1.9.beta
 

@@ -1,3 +1,3 @@
 module CtTableFor
-  VERSION = '0.1.9.beta'
+  VERSION = '0.1.10.beta'
 end
