@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.1.9.beta to be released
+## 0.1.10.beta to be released
+
+- ...
+
+## version 0.1.9.beta
 
 - removed `.capitalize` from `human_attribute_name("#{attribute}")`
 - added `percentage numeric_type cell` with `configurable precision decimals`
