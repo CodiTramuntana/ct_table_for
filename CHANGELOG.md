@@ -1,8 +1,12 @@
 # Changelog
 
-## version 0.1.11.beta to be released
+## version 0.1.12.beta to be released
 
 - ...
+
+## version 0.1.11.beta
+
+- added `localized` table cell, passing :l as an attribute parameter
 
 ## version 0.1.10.beta
 

@@ -119,7 +119,11 @@ module CtTableFor
           elsif defined?(Paperclip) and value.is_a?(Paperclip::Attachment)
             html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
           else
-            html << value.to_s.truncate(50, separator: " ")
+            if cell_options.include? "l"
+              html << table_for_cell_for_locale(model, attribute, value)
+            else
+              html << value.to_s.truncate(50, separator: " ")
+            end
           end
         end
       html << %Q{</td>}
@@ -132,6 +136,10 @@ module CtTableFor
 
       html << image_tag(record.send(attribute).url(size), class: CtTableFor.table_for_cell_for_image_image_class, style: "max-height: 100px;")
       html.html_safe
+    end
+    
+    def table_for_cell_for_locale model, attribute, value, cell_options: {}
+      html = model.human_attribute_name("#{attribute.underscore}.#{value.underscore}")
     end
 
 
