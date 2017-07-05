@@ -1,8 +1,13 @@
 # Changelog
 
-## version 0.1.12.beta to be released
+## version 0.1.13.beta to be released
 
 - ...
+
+## version 0.1.12.beta
+
+- added option to don't truncate cell strings, passing `:no_truncate` as an attribute parameter
+- added settings option to change trucate defaults such as `separator`, `length` and `omission`
 
 ## version 0.1.11.beta
 

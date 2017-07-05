@@ -121,8 +121,14 @@ module CtTableFor
           else
             if cell_options.include? "l"
               html << table_for_cell_for_locale(model, attribute, value)
+            elsif cell_options.include? "no_truncate"
+              html << value.to_s
             else
-              html << value.to_s.truncate(50, separator: " ")
+              html << value.to_s.truncate(
+                CtTableFor.table_for_truncate_length, 
+                separator: CtTableFor.table_for_truncate_separator, 
+                omission: CtTableFor.table_for_truncate_omission
+              )
             end
           end
         end

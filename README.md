@@ -57,7 +57,9 @@ CtTableFor.setup do |config|
   config.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash"}
   config.table_for_numeric_percentage_precision = 2
   config.table_for_cell_for_image_image_class = "img-responsive"
-
+  config.table_for_truncate_length = 50
+  config.table_for_truncate_separator = " "
+  config.table_for_truncate_omission = "..."
 end
 ```
 You can also define the breakpoint in your `sass` before importing `table_for`:

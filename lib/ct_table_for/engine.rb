@@ -7,6 +7,9 @@ module CtTableFor
     mattr_accessor :table_for_action_icons
     mattr_accessor :table_for_numeric_percentage_precision
     mattr_accessor :table_for_cell_for_image_image_class
+    mattr_accessor :table_for_truncate_length
+    mattr_accessor :table_for_truncate_separator
+    mattr_accessor :table_for_truncate_omission
 
     self.table_for_wrapper_default_class = "table-responsive"
     self.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
@@ -15,6 +18,9 @@ module CtTableFor
     self.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash", custom: "gear"}
     self.table_for_numeric_percentage_precision = 2
     self.table_for_cell_for_image_image_class = "img-responsive"
+    self.table_for_truncate_length = 50
+    self.table_for_truncate_separator = " "
+    self.table_for_truncate_omission = "..."
   end
 
   # this function maps the vars from your app into your engine
