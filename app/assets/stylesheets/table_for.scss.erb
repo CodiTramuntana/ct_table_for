@@ -1,5 +1,9 @@
 $table-for-breakpoint: <%= CtTableFor.table_for_breakpoint %> !default;
 
+tr[data-href] {
+  cursor: pointer;
+}
+
 @media (max-width: $table-for-breakpoint) {
   // table as cards
   .table-for {

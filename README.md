@@ -36,12 +36,35 @@ or in sass
 @import "table_for"
 ```
 
+And JS in your `application.js` file:
+
+```
+//
+//= require table_for
+//
+```
+
 ## Usage
 
 To get started, just use the `table_for_for` helper. Here's an example:
 
 ```erb
 <%= table_for Model, @collection %>
+```
+
+#### Clickable rows
+
+To make rows clickable just add corresponding option to `table_for` helper:
+
+```erb
+<%= table_for Model, @collection, options: { clickable: true } %>
+```
+
+It builds a call to a named RESTful route for a given record from a collection.
+Also, you can specify your own URI by passing `row_uri` option:
+
+```erb
+<%= table_for Model, @collection, options: { clickable: true, row_uri: "http://example.com" } %>
 ```
 
 ### Customizing

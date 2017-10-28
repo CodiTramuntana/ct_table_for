@@ -62,7 +62,9 @@ module CtTableFor
         if collection.present?
           custom_tr_class = options[:tr_class].present? ? %Q{class="#{options[:tr_class]}"} : ""
           collection.each do |record|
-            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_tr_class}>}
+            html << %Q{
+              <tr data-colection-id="#{record.try(:id)}" #{custom_tr_class} #{data_href_for(record, options)}>
+            }
               table_for_attributes(model, options).each do |attribute|
                 attribute, *params = attribute.split(":")
                 html << table_for_cell( model, record, attribute, cell_options: params )
@@ -79,6 +81,11 @@ module CtTableFor
         end
       html << %Q{</tbody>}
       html.html_safe
+    end
+
+    def data_href_for(record, options)
+      return unless options[:clickable]
+      "data-href=" << (options[:row_uri] && uri?(options[:row_uri]) ? options[:row_uri] : polymorphic_url(record))
     end
 
     def table_for_cell model, record, attribute, cell_options: {}
