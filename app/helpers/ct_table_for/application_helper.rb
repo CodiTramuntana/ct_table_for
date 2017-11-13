@@ -99,7 +99,7 @@ module CtTableFor
       html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}">}
         case value
         when NilClass
-          html << %Q{<i class="fa fa-asterisk text-muted"></i>}
+          html << %Q{<i class="fa fa-minus text-muted"></i>}
         when TrueClass, FalseClass
           html << %Q{<i class="fa #{value ? "fa-check text-success" : "fa-times text-danger"}"></i>}
         when Numeric
