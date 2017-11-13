@@ -36,6 +36,12 @@ or in sass
 @import "table_for"
 ```
 
+And require the necessary javascript in `application.js` if you are using the `clickable` row option (`jQuery` is required):
+
+```js
+//= require table_for
+```
+
 ## Usage
 
 To get started, just use the `table_for_for` helper. Here's an example:
@@ -43,6 +49,22 @@ To get started, just use the `table_for_for` helper. Here's an example:
 ```erb
 <%= table_for Model, @collection %>
 ```
+
+#### Clickable rows
+
+To make rows clickable just add corresponding option to `table_for` helper:
+
+```erb
+<%= table_for Model, @collection, options: { clickable: true } %>
+```
+
+It builds a call to a named RESTful route for a given record from a collection.
+Also, you can specify your own nested resources path by passing an `array` of symbols:
+
+```erb
+<%= table_for Model, @collection, options: { clickable: [:bo, :admin] } %>
+```
+
 
 ### Customizing
 

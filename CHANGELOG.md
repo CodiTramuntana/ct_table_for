@@ -1,8 +1,12 @@
 # Changelog
 
-## version 0.1.13.beta to be released
+## version 0.1.14.beta to be released
 
 - ...
+
+## version 0.1.13.beta
+
+- added whole row clikable link as an option
 
 ## version 0.1.12.beta
 

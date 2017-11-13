@@ -37,3 +37,13 @@ $table-for-breakpoint: <%= CtTableFor.table_for_breakpoint %> !default;
     }
 	}
 }
+
+// clickable options
+.table-for.table-clickable {
+  tr[data-link] {
+    cursor: pointer;
+    td[data-link-enabled="false"] {
+      cursor: default;
+    }
+  }
+}

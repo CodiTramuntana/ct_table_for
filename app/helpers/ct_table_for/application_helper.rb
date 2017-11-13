@@ -18,13 +18,14 @@ module CtTableFor
     #   id: "my-id",                         // String: adds custom id to <table> element
     #   class: "my-custom-css",              // String: add custom class to <table> element
     #   tr_class: "my-custom-css"            // String: add custom class to <tr> element
+    #  clickable: true || Array              // Boolean or Array of nested resources for polymorphic_url
     #}
     ####################################################################################
 
     def table_for model, collection, options: {}
       custom_id = options[:id].present? ? %Q{id="#{options[:id]}"} : ""
       html = %Q{<div class="table-for-wrapper #{CtTableFor.table_for_wrapper_default_class}">}
-        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.table_for_default_class} #{options[:class]}">}
+        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.table_for_default_class} #{options[:class]} #{("table-clickable") if options[:clickable]}">}
           html << table_for_header(model, has_actions: options[:actions].present?, options: options)
           html << table_for_content(model, collection, options: options)
         html << %Q{</table>}
@@ -62,7 +63,7 @@ module CtTableFor
         if collection.present?
           custom_tr_class = options[:tr_class].present? ? %Q{class="#{options[:tr_class]}"} : ""
           collection.each do |record|
-            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_tr_class}>}
+            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_tr_class} #{row_data_link(record, options)}>}
               table_for_attributes(model, options).each do |attribute|
                 attribute, *params = attribute.split(":")
                 html << table_for_cell( model, record, attribute, cell_options: params )
@@ -79,6 +80,16 @@ module CtTableFor
         end
       html << %Q{</tbody>}
       html.html_safe
+    end
+
+    def row_data_link(record, options)
+      return unless options[:clickable]
+      if options[:clickable].kind_of?(Array)
+        nested_resources = (options[:clickable] || []) + [record]
+      else
+        nested_resources = record
+      end
+      "data-link =" << polymorphic_url(nested_resources)
     end
 
     def table_for_cell model, record, attribute, cell_options: {}
@@ -125,8 +136,8 @@ module CtTableFor
               html << value.to_s
             else
               html << value.to_s.truncate(
-                CtTableFor.table_for_truncate_length, 
-                separator: CtTableFor.table_for_truncate_separator, 
+                CtTableFor.table_for_truncate_length,
+                separator: CtTableFor.table_for_truncate_separator,
                 omission: CtTableFor.table_for_truncate_omission
               )
             end
@@ -143,7 +154,7 @@ module CtTableFor
       html << image_tag(record.send(attribute).url(size), class: CtTableFor.table_for_cell_for_image_image_class, style: "max-height: 100px;")
       html.html_safe
     end
-    
+
     def table_for_cell_for_locale model, attribute, value, cell_options: {}
       html = model.human_attribute_name("#{attribute.underscore}.#{value.underscore}")
     end
@@ -152,7 +163,7 @@ module CtTableFor
     def table_for_actions(record, options: {} )
       return "" if options[:actions].blank?
       html = ""
-      html << %Q{<td>}
+      html << %Q{<td data-link-enabled="false">}
         html << %Q{<div class="btn-group btn-group-sm" role="group" aria-label="#{I18n.t(:actions, scope: [:table_for]).capitalize}">}
         nesting = (options[:actions][:premodel] || []) + [record]
         buttons, *btn_options = options[:actions][:buttons].split(":")
