@@ -18,6 +18,10 @@ module CtTableFor
     #   id: "my-id",                         // String: adds custom id to <table> element
     #   class: "my-custom-css",              // String: add custom class to <table> element
     #   tr_class: "my-custom-css"            // String: add custom class to <tr> element
+    #   btn_class: {                         // Hash: add custom class to action buttons
+    #     show: "my-custom-css",
+    #     edit: "my-custom-css"
+    #   }
     #  clickable: true || Array              // Boolean or Array of nested resources for polymorphic_url
     #}
     ####################################################################################
@@ -172,16 +176,19 @@ module CtTableFor
           label = I18n.t(action.to_sym, scope: [:table_for, :buttons]).capitalize
           case action.to_sym
           when :show
+            css_class = options.dig(:btn_class, action.to_sym) || 'btn btn-primary btn-sm'
             if options[:actions][:icons] != false
               label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:show]}"></i>}
             end
-            html << link_to(label.html_safe, polymorphic_path(nesting), class: "btn btn-primary btn-sm")
+            html << link_to(label.html_safe, polymorphic_path(nesting), class: css_class)
           when :edit
+            css_class = options.dig(:btn_class, action.to_sym) || 'btn btn-success btn-sm'
             if options[:actions][:icons] != false
               label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:edit]}"></i>}
             end
-            html << link_to(label.html_safe, edit_polymorphic_path(nesting), class: "btn btn-success btn-sm")
+            html << link_to(label.html_safe, edit_polymorphic_path(nesting), class: css_class)
           when :destroy
+            css_class = options.dig(:btn_class, action.to_sym) || 'btn btn-danger btn-sm'
             if options[:actions][:icons] != false
               label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:destroy]}"></i>}
             end
