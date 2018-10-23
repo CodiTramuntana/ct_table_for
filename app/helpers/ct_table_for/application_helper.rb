@@ -187,7 +187,7 @@ module CtTableFor
             end
             html << link_to(label.html_safe, polymorphic_path(nesting),
                     method: :delete, class: "btn btn-danger btn-sm",
-                    data: { confirm: I18n.t('are_you_sure').capitalize })
+                    data: { confirm: I18n.t('table_for.messages.are_you_sure').capitalize })
           else
             # TODO:
             # nesting_custom = nesting + btn_options[0]
