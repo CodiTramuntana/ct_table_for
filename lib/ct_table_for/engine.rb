@@ -2,6 +2,7 @@ module CtTableFor
   class << self
     mattr_accessor :table_for_default_class
     mattr_accessor :table_for_wrapper_default_class
+    mattr_accessor :table_for_default_action_class
     mattr_accessor :table_for_breakpoint
     mattr_accessor :table_for_icon_font_base_class
     mattr_accessor :table_for_action_icons
@@ -13,6 +14,7 @@ module CtTableFor
 
     self.table_for_wrapper_default_class = "table-responsive"
     self.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
+    self.table_for_default_action_class = {show: "btn btn-primary btn-sm", edit: "btn btn-success btn-sm", destroy: "btn btn-danger btn-sm", other: "btn btn-default"}
     self.table_for_breakpoint = "992px"
     self.table_for_icon_font_base_class = "fa"
     self.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash", custom: "gear"}
