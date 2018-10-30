@@ -18,6 +18,10 @@ module CtTableFor
     #   id: "my-id",                         // String: adds custom id to <table> element
     #   class: "my-custom-css",              // String: add custom class to <table> element
     #   tr_class: "my-custom-css"            // String: add custom class to <tr> element
+    #   btn_class: {                         // Hash: add custom class to action buttons
+    #     show: "my-custom-css",
+    #     edit: "my-custom-css"
+    #   }
     #  clickable: true || Array              // Boolean or Array of nested resources for polymorphic_url
     #}
     ####################################################################################
@@ -170,23 +174,24 @@ module CtTableFor
         buttons.each do |action|
           return "" if defined?(CanCanCan) and cannot?(action, record)
           label = I18n.t(action.to_sym, scope: [:table_for, :buttons]).capitalize
+          custom_action_class = %Q{#{CtTableFor.table_for_default_action_base_class} #{options.dig(:btn_class, action.to_sym) || CtTableFor.table_for_action_class[action.to_sym]}}
           case action.to_sym
           when :show
             if options[:actions][:icons] != false
               label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:show]}"></i>}
             end
-            html << link_to(label.html_safe, polymorphic_path(nesting), class: "btn btn-primary btn-sm")
+            html << link_to(label.html_safe, polymorphic_path(nesting), class: custom_action_class)
           when :edit
             if options[:actions][:icons] != false
               label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:edit]}"></i>}
             end
-            html << link_to(label.html_safe, edit_polymorphic_path(nesting), class: "btn btn-success btn-sm")
+            html << link_to(label.html_safe, edit_polymorphic_path(nesting), class: custom_action_class)
           when :destroy
             if options[:actions][:icons] != false
               label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[:destroy]}"></i>}
             end
             html << link_to(label.html_safe, polymorphic_path(nesting),
-                    method: :delete, class: "btn btn-danger btn-sm",
+                    method: :delete, class: custom_action_class,
                     data: { confirm: I18n.t('table_for.messages.are_you_sure').capitalize })
           else
             # TODO:

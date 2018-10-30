@@ -74,6 +74,8 @@ Create config variables in your app's /config/initializers/ct_table_for.rb
 CtTableFor.setup do |config|
   config.table_for_wrapper_default_class = "table-responsive"
   config.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
+  config.table_for_default_action_base_class = "btn btn-sm"
+  config.table_for_action_class = {show: "btn-primary", edit: "btn-success", destroy: "btn-danger", other: "btn-default"}
   config.table_for_breakpoint = "992px" # or could be done by sass
   config.table_for_icon_font = "fa"
   config.table_for_action_icons = {show: "eye", edit: "pencil", destroy: "trash"}

@@ -152,15 +152,23 @@ ca:
     <hr>
 
     <h4>CSS class i id</h4>
-    <p> Al hash d'opcions, es pot passar <code>id</code>, <code>class</code> o <code>tr_class</code> amb un string per afegir una clase, o id personalitzada.</p>
-    <p> <code>id</code> i <code>class</code> s'aplicarà a l'element <code>&#x3C;table&#x3E;</code> i <code>tr_class</code> als <code>&#x3C;tr&#x3E;</code>.</p>
-    <p> Per exemple, <code>&#x3C;%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class"} %&#x3E;</code></p>
+    <p> Al hash d'opcions, es pot passar: </p>
+    <p><ul>
+      <li><code>id</code> (String): s'aplicarà a l'element <code>&#x3C;table&#x3E;</code>.</li>
+      <li><code>class</code> (String): s'aplicarà a l'element <code>&#x3C;table&#x3E;</code>.</li>
+      <li><code>tr_class</code> (String): s'aplicarà a l'element <code>&#x3C;tr&#x3E;</code>.</li>
+      <li><code>btn_class</code> (Hash): s'aplicarà als elements <code>&#x3C;a&#x3E;</code> de les accions juntament amb el valor per defecte de <code>table_for_default_action_base_class</code>.</li>
+      </ul>
+    </p>
+    <p> Per exemple, <code>&#x3C;%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class", btn_class: { show: "btn-primary" } %&#x3E;</code></p>
 <div class="row">
   <div class="col-md-6">
 <pre>
 &#x3C;table id=&#x22;my-id&#x22; class=&#x22;my-class&#x22;&#x3E;
   &#x3C;tbody&#x3E;
-    &#x3C;tr class=&#x22;my-tr-class&#x22;&#x3E;&#x3C;/tr&#x3E;
+    &#x3C;tr class=&#x22;my-tr-class&#x22;&#x3E;
+    &#x3C;td&#x3E;&#x3C;a class="btn btn-primary"...&#x3E;...&#x3C;/a&#x3E;&#x3C;/td&#x3E;
+    &#x3C;/tr&#x3E;
   &#x3C;/tbody&#x3E;
 &#x3C;/table&#x3E;
 </pre>
