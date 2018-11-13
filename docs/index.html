@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <title>CtTableFor: Rails Responsive Table. table_for helper</title>
@@ -12,7 +12,7 @@
 <body>
 <div class="alert alert-info">
   <p>Has d'incloure al <code>Gemfile</code>:<br>
-  <code>gem 'ct_table_for', '~> 0.1.8.beta'</code>
+  <code>gem 'ct_table_for', '~> 0.1.14.beta'</code>
   </p>
 </div>
 <div class="box">
@@ -43,9 +43,9 @@
   </div>
   <div class="box-body">
      <p> Si volem renderitzar utilitzant helpers li podem dir els m&egrave;todes del helper que volem que es cridin. Els atributs del Model tenen prioritat en cas de tenir el mateix nom. </p>
-     <p> Pansant-li al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_custom_name)} %&#x3E;</code></p>
+     <p> Pansant-li al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_helper_method)} %&#x3E;</code></p>
      <p> El helper rep com a par&agrave;metre la inst&agrave;ncia del model. </p>
-     <%= table_for User, @users, options: {attributes: %w(my_custom_name)} %>
+     <%= table_for User, @users, options: {attributes: %w(my_helper_method)} %>
   </div>
 </div>
 
