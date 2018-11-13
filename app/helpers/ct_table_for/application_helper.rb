@@ -98,7 +98,13 @@ module CtTableFor
 
     def table_for_cell model, record, attribute, cell_options: {}
       html = ""
-      value = record.try(attribute.to_sym)
+      value = if record.respond_to?(attribute.to_sym)
+                record.send(attribute.to_sym)
+              elsif self.respond_to?(attribute.to_sym)
+                self.send(attribute.to_sym, record)
+              else
+                nil
+              end
 
       html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}">}
         case value

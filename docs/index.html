@@ -32,8 +32,20 @@
   </div>
   <div class="box-body">
      <p> Si volem renderitzar uns camps en concret li podem dir els atributs que volem que es mostrin. </p>
-     <p> Pansant-li com al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel)} %&#x3E;</code></p>
+     <p> Pansant-li al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel)} %&#x3E;</code></p>
      <%= table_for User, @users, options: {attributes: %w(name email tel)} %>
+  </div>
+</div>
+
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Utilizant helpers</h3>
+  </div>
+  <div class="box-body">
+     <p> Si volem renderitzar utilitzant helpers li podem dir els m&egrave;todes del helper que volem que es cridin. Els atributs del Model tenen prioritat en cas de tenir el mateix nom. </p>
+     <p> Pansant-li al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_custom_name)} %&#x3E;</code></p>
+     <p> El helper rep com a par&agrave;metre la inst&agrave;ncia del model. </p>
+     <%= table_for User, @users, options: {attributes: %w(my_custom_name)} %>
   </div>
 </div>
 
