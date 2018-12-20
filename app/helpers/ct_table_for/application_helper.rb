@@ -176,8 +176,8 @@ module CtTableFor
       html << %Q{<td data-link-enabled="false">}
         html << %Q{<div class="btn-group btn-group-sm" role="group" aria-label="#{I18n.t(:actions, scope: [:table_for]).capitalize}">}
         nesting = (options[:actions][:premodel] || []) + [record]
-        buttons, *btn_options = options[:actions][:buttons].split(":")
-        buttons.each do |action|
+        buttons = options[:actions][:buttons].map{ |b| b.split("|")}
+        buttons.each do |action, *extras|
           return "" if defined?(CanCanCan) and cannot?(action, record)
           label = I18n.t(action.to_sym, scope: [:table_for, :buttons]).capitalize
           custom_action_class = %Q{#{CtTableFor.table_for_default_action_base_class} #{options.dig(:btn_class, action.to_sym) || CtTableFor.table_for_action_class[action.to_sym]}}
@@ -199,6 +199,13 @@ module CtTableFor
             html << link_to(label.html_safe, polymorphic_path(nesting),
                     method: :delete, class: custom_action_class,
                     data: { confirm: I18n.t('table_for.messages.are_you_sure').capitalize })
+          when :custom
+            parsed_extras = parse_extras(extras)
+            if options[:actions][:icons] != false
+              label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{parsed_extras[:icon]}"></i>}
+            end
+            custom_action_class = %Q{#{CtTableFor.table_for_default_action_base_class} #{parsed_extras[:class]}}
+            html << link_to(label.html_safe, polymorphic_path([parsed_extras[:link], record]), class: custom_action_class, title: parsed_extras[:title])
           else
             # TODO:
             # nesting_custom = nesting + btn_options[0]
@@ -219,6 +226,10 @@ module CtTableFor
       false
     rescue URI::InvalidURIError
       false
+    end
+
+    def parse_extras(extras)
+      Hash[extras.collect { |extra| [extra.split(":").first, extra.split(":").last] } ].with_indifferent_access
     end
   end
 end
