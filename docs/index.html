@@ -62,7 +62,25 @@
     <h4>Accions amb texte</h4>
     <p> Per defecte, en les accions es mostren les icones corresponents, però si volem que el que es mostri és el texte haurem d'incloure al `hash` d'actions: <code>icons: false</code> </p>
     <p> A més a més de passar com a opcions el hash d'accions, hem de passar la opció <code>icons: true</code></p>
-    <%= table_for User, @users, options: {attributes: %w( id type active confirmed_at name surnames email), actions: {buttons: %w(show edit destroy), icons: false, premodel: [:bo, :admin]}} %>
+    <p>
+      <code><%= table_for User, @users, options: {attributes: %w( id type active confirmed_at name surnames email), actions: {buttons: %w(show edit destroy), icons: false, premodel: [:bo, :admin]}} %></code>
+    </p>
+
+    <h4>Accions customitzades</h4>
+    <p> El sistema també permet la configuració de botons customitzats segons necessitats. Per fer-ho, cal seguir un format pre-establert, que segueix: <code>custom|key1:value1|key2:value2|...</code></p>
+    <p> Els valors possibles son:</p>
+    <ul>
+      <li><i>icon</i>: nom clau de la icona a fer servir, per exemple <i>eye</i>, <i>trash</i> o <i>gear</i></li>
+      <li><i>class</i>: classe a afegir a la icona</li>
+      <li><i>title</i>: permet afegir un text flotant (tooltip)</li>
+      <li><i>link</i>: link de la acció. En aquesta primera versió noḿes es permeten accions GET sobre el mateix objecte de la taula</li>
+    </ul>
+    <p> Per exemple:</p>
+    <code>
+      <%= table_for User, @users, options:
+      {attributes: %w(id type),
+        actions: {buttons: "custom|icon:plus|class:btn-success|link:new_page_bo_admin|title:New page", premodel: [:bo, :admin]}} %>
+    </code>
   </div>
 </div>
 
