@@ -215,11 +215,19 @@ module CtTableFor
 
     def button_for_custom_action record, options, extras
       parsed_extras = parse_extras(extras)
-      if options[:actions][:icons] != false
+      if parsed_extras[:icons] != false
         label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{parsed_extras[:icon]}"></i>}
       end
+      ancestors_list = parsed_extras[:ancestors].presence || ""
+      ancestors = ancestors_list.split(",").map do |ancestor|
+        record.send(ancestor)
+      end
       custom_action_class = %Q{#{CtTableFor.table_for_default_action_base_class} #{parsed_extras[:class]}}
-      link_to(label.html_safe, polymorphic_path([parsed_extras[:link], record]), class: custom_action_class, title: parsed_extras[:title])
+      link_to(label.html_safe,
+              polymorphic_path([parsed_extras[:link], *ancestors, record]),
+              class: custom_action_class,
+              method: parsed_extras[:method],
+              title: parsed_extras[:title])
     end
 
     def uri?(string)
