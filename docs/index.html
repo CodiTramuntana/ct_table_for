@@ -10,72 +10,68 @@
     <title>CtTableFor: Rails Responsive Table. table_for helper</title>
   </head>
 <body>
+<div class="container">
 <div class="alert alert-info">
-  <p>Has d'incloure al <code>Gemfile</code>:<br>
+  <p>Needed to include to <code>Gemfile</code>:<br>
   <code>gem 'ct_table_for', '~> 0.1.15.beta'</code>
   </p>
 </div>
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Utilitzant un ActiveRecord</h3>
+    <h3 class="box-title">Using an ActiveRecord</h3>
   </div>
   <div class="box-body ">
-    <p> Els dos camps requerits son: <strong>Model</strong> i una <strong>col·lecció d'ActiveRecord</strong>, automàticament renderitzarà tots els attributs de l'activerecord "</p>
-    <p> Per exemple de la següent manera <code>&#x3C;%= table_for User, @users %&#x3E;</code></p>
-    <%= table_for User, @users %>
+    <p> The two required fields are: a <strong>Model</strong> and a <strong>collection of ActiveRecord</strong>, automatically will render all the attributes of the activerecord "</p>
+    <p> For example by the following way <code>&#x3C;%= table_for User, @users %&#x3E;</code></p>
   </div>
 </div>
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Utilizant uns camps concrets del Model</h3>
+    <h3 class="box-title">Using concrete fields of the Model</h3>
   </div>
   <div class="box-body">
-     <p> Si volem renderitzar uns camps en concret li podem dir els atributs que volem que es mostrin. </p>
-     <p> Pansant-li al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel)} %&#x3E;</code></p>
-     <%= table_for User, @users, options: {attributes: %w(name email tel)} %>
+     <p> If the render of specific fields is wanted, the attributes to be shown can be specified. </p>
+     <p> Passing the options hash as an <code>Array</code>. For example by the following way <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel)} %&#x3E;</code></p>
   </div>
 </div>
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Utilizant helpers</h3>
+    <h3 class="box-title">Using helpers</h3>
   </div>
   <div class="box-body">
-     <p> Si volem renderitzar utilitzant helpers li podem dir els m&egrave;todes del helper que volem que es cridin. Els atributs del Model tenen prioritat en cas de tenir el mateix nom. </p>
-     <p> Pansant-li al hash d'opcions com a <code>Array</code>. Per exemple de la següent manera <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_helper_method)} %&#x3E;</code></p>
-     <p> El helper rep com a par&agrave;metre la inst&agrave;ncia del model. </p>
-     <%= table_for User, @users, options: {attributes: %w(my_helper_method)} %>
+     <p> If helpers want to be used in rendering, specific helper's calling methods can be specified. Attributes of the Model have priority in case of having the same name. </p>
+     <p> Passing the options hash as an <code>Array</code>. For example by the following way <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_helper_method)} %&#x3E;</code></p>
+     <p> The helper receives as a parameter the instance of the model. </p>
   </div>
 </div>
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Utilitzant uns camps concrets i accions.</h3>
+    <h3 class="box-title">Using concrete fields and actions.</h3>
   </div>
   <div class="box-body">
-    <p> Si volem que hi hagi buttons per a les accions (show, edit, destroy), podem passar-li com un hash <code>actions: {}</code> al hash d'opcions amb els seüents parametres <code> actions: {buttons: %w(show edit destroy)}</code>
-      i si aquestes accions tenen un namespace tenim que pasar-li la opció de <code>premodel</code> a actions amb un array de simbols, ho fariem dela següent manera
-      <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin]}} %&#x3E;</code></p>
-    <%= table_for User, @users, options: {attributes: %w( id type active confirmed_at name surnames email), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin]}} %>
+    <p> If buttons are wanted for the actions (show, edit, destroy), a hash of <code>actions: {}</code> can be passed to the options hash with the following parameters <code> actions: {buttons: %w(show edit destroy)}</code>.
+      If these actions have a namespace, <code>premodel</code> option has to be passed to actions as a symbol array, by <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin]}} %&#x3E;</code></p>
 
-    <h4>Accions amb texte</h4>
-    <p> Per defecte, en les accions es mostren les icones corresponents, però si volem que el que es mostri és el texte haurem d'incloure al `hash` d'actions: <code>icons: false</code> </p>
-    <p> A més a més de passar com a opcions el hash d'accions, hem de passar la opció <code>icons: true</code></p>
+    <h4>Actions with text</h4>
+    <p> By default, in the actions the corresponent icon is shown. But if the text is only wanted, the followinf statement must be included in the actions `hash`: <code>icons: false</code> </p>
+    <p> Additionally, the option <code>icons: true</code> has also to be passed. </p>
     <p>
       <code><%= table_for User, @users, options: {attributes: %w( id type active confirmed_at name surnames email), actions: {buttons: %w(show edit destroy), icons: false, premodel: [:bo, :admin]}} %></code>
     </p>
 
-    <h4>Accions customitzades</h4>
-    <p> El sistema també permet la configuració de botons customitzats segons necessitats. Per fer-ho, cal seguir un format pre-establert, que segueix: <code>custom|key1:value1|key2:value2|...</code></p>
-    <p> Els valors possibles son:</p>
+    <h4>Custom actions</h4>
+    <p> The system also allows the configuration of customized buttons according to the needs. In order to do it, a pre-established format must be followed: <code>custom|key1:value1|key2:value2|...</code></p>
+    <p> The possible values are: </p>
     <ul>
-      <li><i>icon</i>: nom clau de la icona a fer servir, per exemple <i>eye</i>, <i>trash</i> o <i>gear</i></li>
-      <li><i>class</i>: classe a afegir a la icona</li>
-      <li><i>title</i>: permet afegir un text flotant (tooltip)</li>
-      <li><i>link</i>: link de la acció. En aquesta primera versió noḿes es permeten accions GET sobre el mateix objecte de la taula</li>
+      <li><i>icon</i>: key name of the icon to be used, for example <i>eye</i>, <i>trash</i> o <i>gear</i></li>
+      <li><i>class</i>: class to add to the icon</li>
+      <li><i>title</i>: allows to add a floating text (tooltip)</li>
+      <li><i>link</i>: action link. In this first version only GET actions are allowed over the same table object. </li>
     </ul>
-    <p> Per exemple:</p>
+    <p> For example:</p>
     <code>
       <%= table_for User, @users, options:
       {attributes: %w(id type),
@@ -86,50 +82,48 @@
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Amb els camps ordenables</h3>
+    <h3 class="box-title">With sortable fields</h3>
   </div>
   <div class="box-body">
-     <p> Si volem que els camps siguin ordenables hem passar el paràmetre <code>:sortable</code>code> amb l'atribut. Per exemple: <code>attribute:sortable</code> </p>
-     <p> Ho fariem de la següent manera <code>&#x3C;%= table_for User, @users, options: {attributes: %w( id:sortable type:sortable name:sortable surnames:sortable), actions: {buttons: %w(show edit), premodel: [:bo, :admin]} } %&#x3E;</code></p>
-     <%= table_for User, @users, options: {attributes: %w( id:sortable type:sortable name:sortable surnames:sortable), actions: {buttons: %w(show edit), premodel: [:bo, :admin]} } %>
-
+     <p> If sortered fields are wanted, the parameter <code>:sortable</code> has to be passed along with the attribute. For example: <code>attribute:sortable</code></p>
+     <p> It can be done by the following way <code>&#x3C;%= table_for User, @users, options: {attributes: %w( id:sortable type:sortable name:sortable surnames:sortable), actions: {buttons: %w(show edit), premodel: [:bo, :admin]} } %&#x3E;</code> </p>
   </div>
 </div>
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Altres opcions</h3>
+    <h3 class="box-title">Other options</h3>
   </div>
   <div class="box-body">
-    <h4>Imatges</h4>
-    <p> Si l'atribut és una imatge i no li especifiquem el tamany de la imatge, defecte es <code>thumb</code>, si volem mostrar un altre tamany, li passararem com a paràmetre de la següent manera. <code>avatar:thumb</code></p>
+    <h4>Images</h4>
+    <p> If the attribute is an image and its size is not specified, is <code>thumb</code> by default. If other size is wanted, it can be passed as a parameter by the following way: <code>avatar:thumb</code></p>
 
     <hr>
 
-    <h4>Model Aniuat (premodel)</h4>
-    <p> Si es tracta d'un model que depen d'un altre model, per exemple, tenim <code>Chapter</code> que pertany a <code>Book</code>, les rutes son polimorfiques per exemple <em>book_chapter_path</em> haurem de passar la opció <code>premodel</code> a <code>actions</code></p>
-    <p>Aquesta opció també serveix per a rutes amb namespaces o scopes</p>
-    <p><code>premodel</code> serà un array de simbols</p>
-    <p> Per exemple,  <code>&#x3C;%= table_for User, @users, options: {attributes: %w(position subtitle), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin, @book, @chapter]} } %&#x3E;</code></p>
+    <h4>Nested Model (premodel)</h4>
+    <p> If it is a model which is dependant of another model. For example, we have got a <code>Chapter</code> that belongs to <code>Book</code>, the routes are polymorphic (for example <em>book_chapter_path</em>), the option <code>premodel</code> have to be passed to <code>actions</code> </p>
+    <p> This option also can be used in routes with namespaces or scopes</p>
+    <p><code>premodel</code> must be an array of symbols</p>
+    <p> For example,  <code>&#x3C;%= table_for User, @users, options: {attributes: %w(position subtitle), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin, @book, @chapter]} } %&#x3E;</code></p>
 
     <hr>
 
-    <h4>Atribut amb Referència a un Model</h4>
-    <p>Si el model <code>Chapter</code> que s'està representant té un attribut que és una referencia a un altre model <code>Book</code>, podem passar com a l'atribut el nom de l'atribut del Model referenciat, per exemple <code>book:name</code> o <code>book:isbn</code> i a la taula es mostrà el nom/isbn</p>
-    <p>Per exemple,  <code>&#x3C;%= table_for Chapter, @chapters, options: {attributes: %w(name book:name)} %&#x3E;</code></p>
+    <h4>Attribute with Reference to a Model</h4>
+    <p>If model <code>Chapter</code> which is being represented has an attribute that is a reference to another model <code>Book</code>, the name of Model's attribute can be passed as a referenced attribute, for example <code>book:name</code> or <code>book:isbn</code> and the table will show name/isbn</p>
+    <p>For example,  <code>&#x3C;%= table_for Chapter, @chapters, options: {attributes: %w(name book:name)} %&#x3E;</code></p>
 
     <hr>
 
-    <h4>Atribut amb Associació a un Model</h4>
-    <p>Si el model <code>Book</code> que s'està representant té un attribut que és una associació a un altre model <code>Chapter</code>, podem passar com a l'atribut el nom de l'associaió <code>chapters</code> i a la taula es mostrà el número d'elements relacionats</p>
-    <p>Per exemple,  <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name chapters )}%&#x3E;</code></p>
+    <h4>Attribute with Associations to a Model</h4>
+    <p>If model <code>Book</code> which is being represented has an attribute that is an association to another model <code>Chapter</code>, the name of the association <code>chapters</code> can be passed as the attribute and the table will show the number of related elements. </p>
+    <p>For example,  <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name chapters )}%&#x3E;</code></p>
 
     <hr>
 
-    <h4>Atribut amb parametre <code>:currency</code></h4>
-    <p>Si el model <code>Book</code> que s'està representant té un attribut que és un valor monetari <code>price</code>, podem passar juntament l'atribut amb el paràmetre <code>:currency</code> i a la taula es mostrà el preu amb el símbol de la moneda especificat als fitxers de localització</p>
-    <p>Per exemple, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name price:currency)} %&#x3E;</code></p>
-    <p>Si es vol canviar el format o símbol, s'ha de modificar l'arxiu corresponent al locale:</p>
+    <h4>Attribute with parameter <code>:currency</code></h4>
+    <p>If model <code>Book</code> which is being represented has an attribute that is a monetary value <code>price</code>, the parameter <code>:currency</code> can be passed along with the attribute and the table will show the price with the symbol of the currency specified in location files</p>
+    <p>For example, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name price:currency)} %&#x3E;</code></p>
+    <p>If a change of format or symbol is desired, the modification of the corresponding file in the locale is needed.</p>
 <pre>
 ca:
   number:
@@ -140,16 +134,16 @@ ca:
 </pre>
     <hr>
 
-    <h4>Atribut amb parametre <code>:percentage</code></h4>
-    <p>Si el model <code>Book</code> que s'està representant té un attribut que és un valor numéric que representa un percetage <code>discount</code>, podem passar juntament l'atribut amb el paràmetre <code>:percentage</code> i a la taula es mostrà el preu amb el símbol <code>%</code></p>
-    <p>Per exemple, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name discount:percentage)} %&#x3E;</code></p>
-    <p>Si es vol canviar la precisió, s'ha de crear/editar l'arxiu <code>/config/initializers/ct_table_for.rb</code> i incloure:</p>
+    <h4>Attribute with parameter <code>:percentage</code></h4>
+    <p>If model <code>Book</code> which is being represented has an attribute that is a numeric value in percentage <code>discount</code>, the parameter <code>:percentage</code> can be passed along with the attribute and the table will show the price with symbol <code>%</code></p>
+    <p>For example, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name discount:percentage)} %&#x3E;</code></p>
+    <p>If changing the precision is needed, the file <code>/config/initializers/ct_table_for.rb</code> must be created/edited and included:</p>
 <pre>
   CtTableFor.setup do |config|
     config.table_for_numeric_percentage_precision = 2
   end
 </pre>
-  <p>Si es vol canviar el format, s'ha de modificar l'arxiu corresponent al locale:</p>
+  <p>If a change of format is desired, the modification of the corresponding file in the locale is needed.</p>
 <pre>
 ca:
   number:
@@ -159,10 +153,10 @@ ca:
 </pre>
     <hr>
 
-    <h4>Atribut amb parametre <code>:l</code></h4>
-    <p>Si el model <code>Book</code> que s'està representant té un attribut <code>genre</code> i el valor d'aquest és vol localitzar, podem passar juntament l'atribut amb el paràmetre <code>:l</code> i a la taula es mostrarà el valor localitzat segons els fitxers de localització</p>
-    <p>Per exemple, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name type:l genre:l)} %&#x3E;</code></p>
-    <p>S'ha d'incloure les traduccions dels possibles valors a l'arxiu corresponent del locale:</p>
+    <h4>Attribute with parameter <code>:l</code></h4>
+    <p>If model <code>Book</code> which is being represented has an attribute <code>genre</code> and its value needs to be located, the parameter <code>:l</code> can be passed along with the attribute and the table will show the located value according to the location files. </p>
+    <p>For example, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name type:l genre:l)} %&#x3E;</code></p>
+    <p>Translations of the possible values of the corresponding file of locale have to be included:</p>
 <pre>
 ca:
   activerecord:
@@ -181,16 +175,16 @@ ca:
 </pre>
     <hr>
 
-    <h4>CSS class i id</h4>
-    <p> Al hash d'opcions, es pot passar: </p>
+    <h4>CSS class and id</h4>
+    <p> At options hash, it can be passed: </p>
     <p><ul>
-      <li><code>id</code> (String): s'aplicarà a l'element <code>&#x3C;table&#x3E;</code>.</li>
-      <li><code>class</code> (String): s'aplicarà a l'element <code>&#x3C;table&#x3E;</code>.</li>
-      <li><code>tr_class</code> (String): s'aplicarà a l'element <code>&#x3C;tr&#x3E;</code>.</li>
-      <li><code>btn_class</code> (Hash): s'aplicarà als elements <code>&#x3C;a&#x3E;</code> de les accions juntament amb el valor per defecte de <code>table_for_default_action_base_class</code>.</li>
+      <li><code>id</code> (String): will apply to the element <code>&#x3C;table&#x3E;</code>.</li>
+      <li><code>class</code> (String): will apply to the element <code>&#x3C;table&#x3E;</code>.</li>
+      <li><code>tr_class</code> (String): will apply to the element <code>&#x3C;tr&#x3E;</code>.</li>
+      <li><code>btn_class</code> (Hash): will apply to the elements <code>&#x3C;a&#x3E;</code> of the actions along with the value by default of <code>table_for_default_action_base_class</code>.</li>
       </ul>
     </p>
-    <p> Per exemple, <code>&#x3C;%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class", btn_class: { show: "btn-primary" } %&#x3E;</code></p>
+    <p> For example, <code>&#x3C;%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class", btn_class: { show: "btn-primary" } %&#x3E;</code></p>
 <div class="row">
   <div class="col-md-6">
 <pre>
@@ -220,8 +214,9 @@ ca:
   .my-class{ background: aqua; }
   .my-tr-class{ color: deeppink; }
 </style>
-    <%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class" } %>
+    <!-- <%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class" } %> -->
   </div>
+</div>
 </div>
   </body>
 </html>
