@@ -22,17 +22,17 @@
   </div>
   <div class="box-body ">
     <p> The two required fields are: a <strong>Model</strong> and a <strong>collection of ActiveRecord</strong>, automatically will render all the attributes of the activerecord "</p>
-    <p> For example by the following way <code>&#x3C;%= table_for User, @users %&#x3E;</code></p>
+    <p> For example, by the following way <code>&#x3C;%= table_for User, @users %&#x3E;</code></p>
   </div>
 </div>
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Using concrete fields of the Model</h3>
+    <h3 class="box-title">Using specific fields of the Model</h3>
   </div>
   <div class="box-body">
-     <p> If the render of specific fields is wanted, the attributes to be shown can be specified. </p>
-     <p> Passing the options hash as an <code>Array</code>. For example by the following way <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel)} %&#x3E;</code></p>
+     <p> If we want to render specific fields, it is possible to specify the attributes we want to show by
+       passing the value of <code>attributes:</code> as an <code>Array</code> inside the hash <code>options: {}</code>. For example by the following way <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel)} %&#x3E;</code></p>
   </div>
 </div>
 
@@ -41,29 +41,29 @@
     <h3 class="box-title">Using helpers</h3>
   </div>
   <div class="box-body">
-     <p> If helpers want to be used in rendering, specific helper's calling methods can be specified. Attributes of the Model have priority in case of having the same name. </p>
-     <p> Passing the options hash as an <code>Array</code>. For example by the following way <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_helper_method)} %&#x3E;</code></p>
+     <p> If we want to use helpers to render, it is possible to specify any of the calling methods. Attributes of the Model have priority in case of having the same name. </p>
+     <p> This can be done by passing the <code>options: {}</code> hash as an <code>Array</code>. For example by the following way <code>&#x3C;%= table_for User, @users options: {attributes: %w(my_helper_method)} %&#x3E;</code></p>
      <p> The helper receives as a parameter the instance of the model. </p>
   </div>
 </div>
 
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Using concrete fields and actions.</h3>
+    <h3 class="box-title">Using specific fields and actions.</h3>
   </div>
   <div class="box-body">
-    <p> If buttons are wanted for the actions (show, edit, destroy), a hash of <code>actions: {}</code> can be passed to the options hash with the following parameters <code> actions: {buttons: %w(show edit destroy)}</code>.
-      If these actions have a namespace, <code>premodel</code> option has to be passed to actions as a symbol array, by <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin]}} %&#x3E;</code></p>
+    <p> If we want to use buttons for the actions (show, edit, destroy), it is possible to pass a hash of <code>actions: {}</code> to the <code>options: {}</code> hash with the following parameters <code> actions: {buttons: %w(show edit destroy)}</code>.
+      If these actions have a namespace, is required to pass the <code>premodel:</code> option to <code>actions: {}</code> as a symbol <code>Array</code>, by <code>&#x3C;%= table_for User, @users options: {attributes: %w(name email tel), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin]}} %&#x3E;</code></p>
 
     <h4>Actions with text</h4>
-    <p> By default, in the actions the corresponent icon is shown. But if the text is only wanted, the followinf statement must be included in the actions `hash`: <code>icons: false</code> </p>
-    <p> Additionally, the option <code>icons: true</code> has also to be passed. </p>
+    <p> By default, the corresponent icon is shown for the actions. But if we only want the text, the following statement must be included in the actions `hash`: <code>icons: false</code> </p>
+    <p> Additionally, we need to pass the option <code>icons: true</code>. </p>
     <p>
       <code><%= table_for User, @users, options: {attributes: %w( id type active confirmed_at name surnames email), actions: {buttons: %w(show edit destroy), icons: false, premodel: [:bo, :admin]}} %></code>
     </p>
 
     <h4>Custom actions</h4>
-    <p> The system also allows the configuration of customized buttons according to the needs. In order to do it, a pre-established format must be followed: <code>custom|key1:value1|key2:value2|...</code></p>
+    <p> The system also allows the configuration of custom buttons according to the needs. In order to do it, we must follow a pre-established format: <code>custom|key1:value1|key2:value2|...</code></p>
     <p> The possible values are: </p>
     <ul>
       <li><i>icon</i>: key name of the icon to be used, for example <i>eye</i>, <i>trash</i> o <i>gear</i></li>
@@ -85,7 +85,7 @@
     <h3 class="box-title">With sortable fields</h3>
   </div>
   <div class="box-body">
-     <p> If sortered fields are wanted, the parameter <code>:sortable</code> has to be passed along with the attribute. For example: <code>attribute:sortable</code></p>
+     <p> If we want sortered fields, we have to pass the parameter <code>:sortable</code> along with the <code>attribute: </code>. For example: <code>attribute:sortable</code></p>
      <p> It can be done by the following way <code>&#x3C;%= table_for User, @users, options: {attributes: %w( id:sortable type:sortable name:sortable surnames:sortable), actions: {buttons: %w(show edit), premodel: [:bo, :admin]} } %&#x3E;</code> </p>
   </div>
 </div>
@@ -96,34 +96,34 @@
   </div>
   <div class="box-body">
     <h4>Images</h4>
-    <p> If the attribute is an image and its size is not specified, is <code>thumb</code> by default. If other size is wanted, it can be passed as a parameter by the following way: <code>avatar:thumb</code></p>
+    <p> If the attribute is an image and its size is not specified, it is <code>thumb</code> by default. If we want another size, we can pass as a parameter by the following way: <code>avatar:thumb</code></p>
 
     <hr>
 
     <h4>Nested Model (premodel)</h4>
-    <p> If it is a model which is dependant of another model. For example, we have got a <code>Chapter</code> that belongs to <code>Book</code>, the routes are polymorphic (for example <em>book_chapter_path</em>), the option <code>premodel</code> have to be passed to <code>actions</code> </p>
+    <p> If it is a model which is dependant of another model. For example, we have got a <code>Chapter</code> that belongs to <code>Book</code>, the routes are polymorphic (for example <em>book_chapter_path</em>), we have to pass the option <code>premodel:</code> to <code>actions: {}</code> </p>
     <p> This option also can be used in routes with namespaces or scopes</p>
-    <p><code>premodel</code> must be an array of symbols</p>
+    <p><code>premodel: </code> must be an <code>Array</code> of symbols</p>
     <p> For example,  <code>&#x3C;%= table_for User, @users, options: {attributes: %w(position subtitle), actions: {buttons: %w(show edit destroy), premodel: [:bo, :admin, @book, @chapter]} } %&#x3E;</code></p>
 
     <hr>
 
     <h4>Attribute with Reference to a Model</h4>
-    <p>If model <code>Chapter</code> which is being represented has an attribute that is a reference to another model <code>Book</code>, the name of Model's attribute can be passed as a referenced attribute, for example <code>book:name</code> or <code>book:isbn</code> and the table will show name/isbn</p>
+    <p>If the model <code>Chapter</code> that is being represented has an attribute that is a reference to another model <code>Book</code>, we can pass the name of Model's attribute as a referenced <code>attributes: {}</code>, for example <code>book:name</code> or <code>book:isbn</code> and the table will show name/isbn</p>
     <p>For example,  <code>&#x3C;%= table_for Chapter, @chapters, options: {attributes: %w(name book:name)} %&#x3E;</code></p>
 
     <hr>
 
     <h4>Attribute with Associations to a Model</h4>
-    <p>If model <code>Book</code> which is being represented has an attribute that is an association to another model <code>Chapter</code>, the name of the association <code>chapters</code> can be passed as the attribute and the table will show the number of related elements. </p>
+    <p>If the model <code>Book</code> that is being represented has an attribute that is an association to another model <code>Chapter</code>, we can pass the name of the association <code>chapters</code> as the <code>attributes: {}</code> and the table will show the number of related elements. </p>
     <p>For example,  <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name chapters )}%&#x3E;</code></p>
 
     <hr>
 
     <h4>Attribute with parameter <code>:currency</code></h4>
-    <p>If model <code>Book</code> which is being represented has an attribute that is a monetary value <code>price</code>, the parameter <code>:currency</code> can be passed along with the attribute and the table will show the price with the symbol of the currency specified in location files</p>
+    <p>If the model <code>Book</code> that is being represented has an attribute that is a monetary value <code>price</code>, we can pass the parameter <code>:currency</code> along with the <code>attributes: {}</code> and the table will show the price with the symbol of the currency specified in location files</p>
     <p>For example, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name price:currency)} %&#x3E;</code></p>
-    <p>If a change of format or symbol is desired, the modification of the corresponding file in the locale is needed.</p>
+    <p>If we want to change the format or symbol, we must modify the corresponding file in the locale.</p>
 <pre>
 ca:
   number:
@@ -135,7 +135,7 @@ ca:
     <hr>
 
     <h4>Attribute with parameter <code>:percentage</code></h4>
-    <p>If model <code>Book</code> which is being represented has an attribute that is a numeric value in percentage <code>discount</code>, the parameter <code>:percentage</code> can be passed along with the attribute and the table will show the price with symbol <code>%</code></p>
+    <p>If the model <code>Book</code> that is being represented has an attribute that is a numeric value in percentage <code>discount</code>, we can pass the parameter <code>:percentage</code> along with the <code>attributes: {}</code> and the table will show the price with symbol <code>%</code></p>
     <p>For example, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name discount:percentage)} %&#x3E;</code></p>
     <p>If changing the precision is needed, the file <code>/config/initializers/ct_table_for.rb</code> must be created/edited and included:</p>
 <pre>
@@ -143,7 +143,7 @@ ca:
     config.table_for_numeric_percentage_precision = 2
   end
 </pre>
-  <p>If a change of format is desired, the modification of the corresponding file in the locale is needed.</p>
+  <p>If we want to change the format or symbol, we must modify the corresponding file in the locale.</p>
 <pre>
 ca:
   number:
@@ -154,9 +154,9 @@ ca:
     <hr>
 
     <h4>Attribute with parameter <code>:l</code></h4>
-    <p>If model <code>Book</code> which is being represented has an attribute <code>genre</code> and its value needs to be located, the parameter <code>:l</code> can be passed along with the attribute and the table will show the located value according to the location files. </p>
+    <p>If the model <code>Book</code> that is being represented has an attribute <code>genre</code> and its value needs to be located, we can pass the parameter <code>:l</code> along with the <code>attributes: {}</code> and the table will show the located value according to the location files. </p>
     <p>For example, <code>&#x3C;%= table_for Book, @books, options: {attributes: %w(name type:l genre:l)} %&#x3E;</code></p>
-    <p>Translations of the possible values of the corresponding file of locale have to be included:</p>
+    <p>We have to include the translations for the possible values of the corresponding file in locale:</p>
 <pre>
 ca:
   activerecord:
@@ -176,7 +176,7 @@ ca:
     <hr>
 
     <h4>CSS class and id</h4>
-    <p> At options hash, it can be passed: </p>
+    <p> Inside the <code>options: {}</code> hash we can pass the following: </p>
     <p><ul>
       <li><code>id</code> (String): will apply to the element <code>&#x3C;table&#x3E;</code>.</li>
       <li><code>class</code> (String): will apply to the element <code>&#x3C;table&#x3E;</code>.</li>
@@ -214,7 +214,6 @@ ca:
   .my-class{ background: aqua; }
   .my-tr-class{ color: deeppink; }
 </style>
-    <!-- <%= table_for User, @users, options: {id: "my-id", class: "my-class", tr_class: "my-tr-class" } %> -->
   </div>
 </div>
 </div>
