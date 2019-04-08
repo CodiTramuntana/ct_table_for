@@ -215,8 +215,11 @@ module CtTableFor
 
     def button_for_custom_action record, options, extras
       parsed_extras = parse_extras(extras)
-      if parsed_extras[:icons] != false
-        label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{parsed_extras[:icon]}"></i>}
+      # `icons` is a Boolean-String option to limit `icon` option
+      label = if parsed_extras[:icons].to_s == "false"
+        parsed_extras[:title].presence || ""
+      else
+        %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{parsed_extras[:icon]}"></i>}
       end
       ancestors_list = parsed_extras[:ancestors].presence || ""
       ancestors = ancestors_list.split(",").map do |ancestor|
