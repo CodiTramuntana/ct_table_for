@@ -44,7 +44,7 @@ And require the necessary javascript in `application.js` if you are using the `c
 
 ## Usage
 
-To get started, just use the `table_for_for` helper. Here's an example:
+To get started, just use the `table_for` helper. Here's an example:
 
 ```erb
 <%= table_for Model, @collection %>
@@ -88,9 +88,9 @@ end
 ```
 You can also define the breakpoint in your `sass` before importing `table_for`:
 
-```sass
+```scss
 $table-for-breakpoint: 768px;
-@import "table_for"
+@import "table_for";
 ```
 
 
