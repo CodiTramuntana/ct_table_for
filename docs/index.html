@@ -66,17 +66,29 @@
     <p> The system also allows the configuration of custom buttons according to the needs. In order to do it, we must follow a pre-established format: <code>custom|key1:value1|key2:value2|...</code></p>
     <p> The possible values are: </p>
     <ul>
+      <li><i>icons</i>: boolean, to determine the use of an icon or title option for showing</li>
       <li><i>icon</i>: key name of the icon to be used, for example <i>eye</i>, <i>trash</i> o <i>gear</i></li>
       <li><i>class</i>: class to add to the icon</li>
       <li><i>title</i>: allows to add a floating text (tooltip)</li>
-      <li><i>link</i>: action link. In this first version only GET actions are allowed over the same table object. </li>
+      <li><i>link</i>: action link.</li>
+      <li><i>method</i>: method of link. You can pass whatever method you want to be used in the link: GET, POST,...</li>
+      <li><i>ancestors</i>: ancestor's object methods to be used to fill up link. Very usefull for nested link generation.</li>
     </ul>
     <p> For example:</p>
-    <code>
-      <%= table_for User, @users, options:
-      {attributes: %w(id type),
-        actions: {buttons: "custom|icon:plus|class:btn-success|link:new_page_bo_admin|title:New page", premodel: [:bo, :admin]}} %>
-    </code>
+    <p>
+      <code>
+        <%= table_for User, @users, options:
+        {attributes: %w(id type),
+          actions: {buttons: "custom|icon:plus|class:btn-success|link:new_page_bo_admin|title:New page", premodel: [:bo, :admin]}} %>
+      </code>
+    </p>
+    <p>
+      <code>
+        <%= table_for Comment, @comments, options:
+        {attributes: %w(id),
+          actions: {buttons: "custom|icons:false|class:btn-error|link:bo_admin|ancestors:communication,user|method:delete|title:Delete comment", premodel: [:bo, :admin]}} %>
+      </code>
+    </p>
   </div>
 </div>
 
