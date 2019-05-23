@@ -49,7 +49,11 @@ module CtTableFor
             html << %Q{<th>}
               attribute, *params = attribute.split(":")
               html << if defined?(Ransack) and params.include? "sortable"
-                sort_link(@q, attribute, I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
+                if params.length == 1
+                  sort_link(@q, attribute, I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
+                else
+                  sort_link(@q, "#{attribute}_#{params.first}", I18n.t("#{attribute.to_s.underscore}_#{params.first}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
+                end
               else
                 model.human_attribute_name("#{attribute}")
               end
