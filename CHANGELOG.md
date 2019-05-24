@@ -1,8 +1,12 @@
 # Changelog
 
-## version 0.1.14.beta to be released
+## version 1.0.2 to be released
 
 - ...
+
+## version 1.0.1
+
+- fix table headers for associated model with ransack
 
 ## version 0.1.13.beta
 
