@@ -231,6 +231,8 @@ If the attribute is an image and its size is not specified, `thumb` is the defau
 
 If we want another size, we can pass as a parameter by the following way: `avatar:medium`
 
+If the file is in a wrapper model you can also access it like: media_item:file:small
+
 
 #### Nested Model (premodel)
 
