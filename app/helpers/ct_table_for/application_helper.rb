@@ -132,7 +132,11 @@ module CtTableFor
           html << %Q{<code>#{value.strftime("%H:%M:%S")}</code>}
         when ActiveRecord::Base
           if cell_options.present?
-           html << %Q{#{value.send cell_options[0]}}
+            if defined?(Paperclip) and (value.send cell_options[0]).is_a?(Paperclip::Attachment)
+              html << table_for_cell_for_image( value, cell_options[0], cell_options: cell_options )
+            else
+              html << %Q{#{value.send cell_options[0]}}
+            end
           else
             html << %{#{(value.try(:title) || value.try(:name))}}
           end
