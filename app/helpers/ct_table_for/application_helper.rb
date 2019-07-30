@@ -182,22 +182,25 @@ module CtTableFor
         nesting = (options[:actions][:premodel] || []) + [record]
         buttons = options[:actions][:buttons].map{ |b| b.split("|")}
         buttons.each do |action, *extras|
-          return "" if defined?(CanCanCan) and cannot?(action, record)
-          case action.to_sym
-          when :show
-            html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, polymorphic_path(nesting), class: class_for_action(action, options))
-          when :edit
-            html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, edit_polymorphic_path(nesting), class: class_for_action(action, options))
-          when :destroy
-            html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, polymorphic_path(nesting),
-                            method: :delete, class: class_for_action(action, options), data: { confirm: I18n.t('table_for.messages.are_you_sure').capitalize })
-          when :custom
-            html << button_for_custom_action(record, options, extras)
+          if defined?(CanCanCan) && cannot?(action.to_sym, record)
+            html << ""
           else
-            # TODO:
-            # nesting_custom = nesting + btn_options[0]
-            # label = icon CtTableFor.table_for_action_icons[:custom] if options[:actions][:icons] != false and defined?(FontAwesome)
-            # html << link_to(label, polymorphic_path(nesting_custom), class: "btn btn-default btn-sm")
+            case action.to_sym
+            when :show
+              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, polymorphic_path(nesting), class: class_for_action(action, options))
+            when :edit
+              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, edit_polymorphic_path(nesting), class: class_for_action(action, options))
+            when :destroy
+              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, polymorphic_path(nesting),
+                              method: :delete, class: class_for_action(action, options), data: { confirm: I18n.t('table_for.messages.are_you_sure').capitalize })
+            when :custom
+              html << button_for_custom_action(record, options, extras)
+            else
+              # TODO:
+              # nesting_custom = nesting + btn_options[0]
+              # label = icon CtTableFor.table_for_action_icons[:custom] if options[:actions][:icons] != false and defined?(FontAwesome)
+              # html << link_to(label, polymorphic_path(nesting_custom), class: "btn btn-default btn-sm")
+            end
           end
         end
         html << %Q{</div>}
