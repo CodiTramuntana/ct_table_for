@@ -1,8 +1,12 @@
 # Changelog
 
-## version 1.0.2 to be released
+## version 1.0.3 to be released
 
 - ...
+
+## version 1.0.2
+
+- fix application of ability model on record actions
 
 ## version 1.0.1
 
