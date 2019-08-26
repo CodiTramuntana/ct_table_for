@@ -7,6 +7,7 @@
 ## version 1.0.3 to
 
 - fix allow currency and sortable attributes work together
+- fix display format of data time 
 
 ## version 1.0.2
 

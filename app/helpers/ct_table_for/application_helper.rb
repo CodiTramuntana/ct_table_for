@@ -127,6 +127,8 @@ module CtTableFor
         when ActiveSupport::TimeWithZone
           # TODO: value.in_time_zone
           html << %Q{<code>#{value.strftime("%d/%m/%Y %H:%M:%S")}</code>}
+        when Date
+          html << %Q{#{value.strftime("%d/%m/%Y")}}
         when Time
           # TODO: value.in_time_zone
           html << %Q{<code>#{value.strftime("%H:%M:%S")}</code>}
