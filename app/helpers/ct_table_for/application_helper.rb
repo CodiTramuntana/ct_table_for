@@ -49,7 +49,7 @@ module CtTableFor
             html << %Q{<th>}
               attribute, *params = attribute.split(":")
               html << if defined?(Ransack) and params.include? "sortable"
-                if params.length > 1 && !params.include?("l")
+                if params.length > 1 && (params & ['l', 'currency']).empty?
                   sort_link(@q, "#{attribute}_#{params.first}", I18n.t("#{attribute.to_s.underscore}_#{params.first}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
                 else
                   sort_link(@q, attribute, I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
