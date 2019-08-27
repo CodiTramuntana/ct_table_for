@@ -1,8 +1,13 @@
 # Changelog
 
-## version 1.0.3 to be released
+## version 1.0.4 to be released
 
 - ...
+
+## version 1.0.3 to
+
+- fix allow currency and sortable attributes work together
+- fix display format of data time 
 
 ## version 1.0.2
 
