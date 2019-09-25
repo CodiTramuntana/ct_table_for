@@ -179,7 +179,7 @@ module CtTableFor
     def table_for_actions(record, options: {} )
       return "" if options[:actions].blank?
       html = ""
-      html << %Q{<td data-link-enabled="false" class="td-item-actions">}
+      html << %Q{<td data-link-enabled="false" class="#{CtTableFor.table_for_td_default_prefix_class}-actions">}
         html << %Q{<div class="btn-group btn-group-sm" role="group" aria-label="#{I18n.t(:actions, scope: [:table_for]).capitalize}">}
         nesting = (options[:actions][:premodel] || []) + [record]
         buttons = options[:actions][:buttons].map{ |b| b.split("|")}
