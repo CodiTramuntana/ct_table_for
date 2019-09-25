@@ -110,7 +110,7 @@ module CtTableFor
                 nil
               end
 
-      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}" class="td-item-#{attribute}">}
+      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}" class="#{CtTableFor.table_for_td_default_prefix_class}-#{attribute}">}
         case value
         when NilClass
           html << %Q{<i class="fa fa-minus text-muted"></i>}
