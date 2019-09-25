@@ -110,7 +110,7 @@ module CtTableFor
                 nil
               end
 
-      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}">}
+      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}" class="td-item-#{attribute}">}
         case value
         when NilClass
           html << %Q{<i class="fa fa-minus text-muted"></i>}
@@ -179,7 +179,7 @@ module CtTableFor
     def table_for_actions(record, options: {} )
       return "" if options[:actions].blank?
       html = ""
-      html << %Q{<td data-link-enabled="false">}
+      html << %Q{<td data-link-enabled="false" class="td-item-actions">}
         html << %Q{<div class="btn-group btn-group-sm" role="group" aria-label="#{I18n.t(:actions, scope: [:table_for]).capitalize}">}
         nesting = (options[:actions][:premodel] || []) + [record]
         buttons = options[:actions][:buttons].map{ |b| b.split("|")}
