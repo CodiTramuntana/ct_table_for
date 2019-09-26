@@ -84,6 +84,7 @@ CtTableFor.setup do |config|
   config.table_for_truncate_length = 50
   config.table_for_truncate_separator = " "
   config.table_for_truncate_omission = "..."
+  config.table_for_td_default_prefix_class = "td-item"
 end
 ```
 You can also define the breakpoint in your `sass` before importing `table_for`:

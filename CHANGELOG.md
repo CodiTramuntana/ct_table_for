@@ -1,10 +1,14 @@
 # Changelog
 
-## version 1.0.4 to be released
+## version 1.0.5 to be released
 
 - ...
 
-## version 1.0.3 to
+## version 1.0.4
+
+- add class to td, for custom styles
+
+## version 1.0.3
 
 - fix allow currency and sortable attributes work together
 - fix display format of data time 

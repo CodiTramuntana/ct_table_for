@@ -12,6 +12,7 @@ module CtTableFor
     mattr_accessor :table_for_truncate_length
     mattr_accessor :table_for_truncate_separator
     mattr_accessor :table_for_truncate_omission
+    mattr_accessor :table_for_td_default_prefix_class
 
     self.table_for_wrapper_default_class = "table-responsive"
     self.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
@@ -25,6 +26,7 @@ module CtTableFor
     self.table_for_truncate_length = 50
     self.table_for_truncate_separator = " "
     self.table_for_truncate_omission = "..."
+    self.table_for_td_default_prefix_class = "td-item"
   end
 
   # this function maps the vars from your app into your engine
