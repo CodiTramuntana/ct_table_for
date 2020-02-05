@@ -93,7 +93,44 @@ You can also define the breakpoint in your `sass` before importing `table_for`:
 $table-for-breakpoint: 768px;
 @import "table_for";
 ```
+### Using custom methods as columns
 
+You can use methods as attributes, this allows for extra customization layers such as calculations, adding custom html or buttons/links.
+
+You can place this methods in the respective helpers.
+
+If you want to rename a column that uses a custom method, you should update the I18n locales [:activerecord, :attributes, :class_name, :method_name] where :class_name and :method_name are the class you're representing in the table and the method you're calling for that row.
+
+You can edit the length of the cell's html generated through custom methods (default, 50 characters) by adding the option ":no_truncate".
+
+#### View
+```
+<%= table_for WorkOrder, @work_orders,
+    options: {
+      attributes: %w[
+        other_costs:no_truncate
+        total_costs:no_truncate
+      ]
+} %>
+```
+#### locale.yml
+```
+en:
+  activerecord:
+    attributes:
+      other_costs: "Other"
+      total_costs: "Total"
+```
+#### helper_page
+```
+def other_costs(work_order)
+  0
+end
+
+def total_costs(work_order)
+  price_a(work_order) + price_b(work_order) + other_costs(work_order)
+end
+```
 
 ## Development
 
