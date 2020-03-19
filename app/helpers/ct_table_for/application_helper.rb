@@ -124,7 +124,7 @@ module CtTableFor
           elsif cell_options.include? "comma-separator"
             html << number_with_delimiter(value, delimiter: ".", separator: ",")
           else
-            html << %Q{#{value}}
+            html << %Q{#{number_with_delimiter(value)}}
           end
         when ActiveSupport::TimeWithZone
           # TODO: value.in_time_zone
