@@ -49,7 +49,7 @@ module CtTableFor
             html << %Q{<th>}
               attribute, *params = attribute.split(":")
               html << if defined?(Ransack) and params.include? "sortable"
-                if params.length > 1 && (params & ['l', 'currency', 'comma-separator']).empty?
+                if params.length > 1 && (params & ['l', 'currency']).empty?
                   sort_link(@q, "#{attribute}_#{params.first}", I18n.t("#{attribute.to_s.underscore}_#{params.first}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
                 else
                   sort_link(@q, attribute, I18n.t("#{attribute}", scope: [:activerecord, :attributes, model.to_s.underscore]).capitalize )
@@ -121,8 +121,6 @@ module CtTableFor
             html << number_to_currency(value)
           elsif cell_options.include? "percentage"
             html << number_to_percentage(value, precision: CtTableFor.table_for_numeric_percentage_precision)
-          elsif cell_options.include? "comma-separator"
-            html << number_with_delimiter(value, delimiter: ".", separator: ",")
           else
             html << %Q{#{number_with_delimiter(value)}}
           end

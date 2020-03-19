@@ -276,7 +276,7 @@ If the model `Book` that is being represented has an attribute that is a monetar
 
 For example, `<%= table_for Book, @books, options: {attributes: %w(name price:currency)} %>`
 
-If we want to change the format or symbol, we must modify the corresponding file in the locale.
+If we want to change the format or symbol, we must modify the corresponding file in the locale. This works for separators and delimiters also.
 
 ```yml
 en:
@@ -286,11 +286,6 @@ en:
         format: "%n %u"
         unit: "€"
 ```
-
-#### Attribute with parameter `:comma-separator`
-
-Numbers will now be formatted like this: 10.000,00
-
 #### Attribute with parameter `:percentage`
 
 If the model `Book` that is being represented has an attribute that is a numeric value in percentage `discount`, we can pass the parameter `:percentage` along with the `attributes: {}` and the table will show the price with symbol `%`.
