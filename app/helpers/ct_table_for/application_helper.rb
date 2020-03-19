@@ -122,7 +122,7 @@ module CtTableFor
           elsif cell_options.include? "percentage"
             html << number_to_percentage(value, precision: CtTableFor.table_for_numeric_percentage_precision)
           else
-            html << %Q{<code>#{value}</code>}
+            html << %Q{#{number_with_delimiter(value)}}
           end
         when ActiveSupport::TimeWithZone
           # TODO: value.in_time_zone
