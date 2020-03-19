@@ -287,6 +287,9 @@ en:
         unit: "€"
 ```
 
+#### Attribute with parameter `:comma-separator`
+
+Numbers will now be formatted like this: 10.000,00
 
 #### Attribute with parameter `:percentage`
 
