@@ -6,6 +6,7 @@ module CtTableFor
     # RWD Table
     # use as: table_for Model, @collection, options: {}
     # options: {
+    #   style: "lambda {|model| method(model)}"  // String: adds a method for css class
     #   actions: {
     #     buttons: %w(show, edit)},          // Hash: with array of buttons for actions
     #     premodel: [:bo, :admin],           // Array: of symbols for nested namespaces/models
