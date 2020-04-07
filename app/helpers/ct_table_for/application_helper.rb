@@ -143,7 +143,6 @@ module CtTableFor
         else
           if uri?(value)
             html << link_to(value, value)
-
           elsif defined?(Paperclip) and value.is_a?(Paperclip::Attachment)
             html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
           else
