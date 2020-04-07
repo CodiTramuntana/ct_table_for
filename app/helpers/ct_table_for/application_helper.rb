@@ -69,9 +69,9 @@ module CtTableFor
       html = ""
       html << %Q{<tbody>}
         if collection.present?
-          custom_tr_class = options[:tr_class].present? ? %Q{class="#{options[:tr_class]}"} : ""
           collection.each do |record|
-            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_tr_class} #{row_data_link(record, options)}>}
+            custom_class = parse_custom_class(record, options)
+            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_class} #{row_data_link(record, options)}>}
               table_for_attributes(model, options).each do |attribute|
                 attribute, *params = attribute.split(":")
                 html << table_for_cell( model, record, attribute, cell_options: params )
@@ -143,6 +143,7 @@ module CtTableFor
         else
           if uri?(value)
             html << link_to(value, value)
+
           elsif defined?(Paperclip) and value.is_a?(Paperclip::Attachment)
             html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
           else
@@ -254,6 +255,12 @@ module CtTableFor
 
     def parse_extras(extras)
       Hash[extras.collect { |extra| [extra.split(":").first, extra.split(":").last] } ].with_indifferent_access
+    end
+
+    def parse_custom_class(record, options = {})
+      style = options[:style].try(:call, record) || ""
+      tr_class = options[:tr_class] || ""
+      "class='#{tr_class} #{style}'"
     end
   end
 end
