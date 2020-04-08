@@ -71,8 +71,8 @@ module CtTableFor
       html << %Q{<tbody>}
         if collection.present?
           collection.each do |record|
-            custom_class = parse_custom_class(record, options)
-            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_class} #{row_data_link(record, options)}>}
+            css_classes = get_css_classes(record, options)
+            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{css_classes} #{row_data_link(record, options)}>}
               table_for_attributes(model, options).each do |attribute|
                 attribute, *params = attribute.split(":")
                 html << table_for_cell( model, record, attribute, cell_options: params )
@@ -257,7 +257,7 @@ module CtTableFor
       Hash[extras.collect { |extra| [extra.split(":").first, extra.split(":").last] } ].with_indifferent_access
     end
 
-    def parse_custom_class(record, options = {})
+    def get_css_classes(record, options = {})
       style = options[:style].try(:call, record) || ""
       tr_class = options[:tr_class] || ""
       "class='#{tr_class} #{style}'"
