@@ -6,6 +6,7 @@ module CtTableFor
     # RWD Table
     # use as: table_for Model, @collection, options: {}
     # options: {
+    #   style: "lambda {|model| method(model)}"  // String: adds a method for css class
     #   actions: {
     #     buttons: %w(show, edit)},          // Hash: with array of buttons for actions
     #     premodel: [:bo, :admin],           // Array: of symbols for nested namespaces/models
@@ -69,9 +70,9 @@ module CtTableFor
       html = ""
       html << %Q{<tbody>}
         if collection.present?
-          custom_tr_class = options[:tr_class].present? ? %Q{class="#{options[:tr_class]}"} : ""
           collection.each do |record|
-            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{custom_tr_class} #{row_data_link(record, options)}>}
+            css_classes = get_css_classes(record, options)
+            html << %Q{<tr data-colection-id="#{record.try(:id)}" #{css_classes} #{row_data_link(record, options)}>}
               table_for_attributes(model, options).each do |attribute|
                 attribute, *params = attribute.split(":")
                 html << table_for_cell( model, record, attribute, cell_options: params )
@@ -254,6 +255,12 @@ module CtTableFor
 
     def parse_extras(extras)
       Hash[extras.collect { |extra| [extra.split(":").first, extra.split(":").last] } ].with_indifferent_access
+    end
+
+    def get_css_classes(record, options = {})
+      style = options[:style].try(:call, record) || ""
+      tr_class = options[:tr_class] || ""
+      "class='#{tr_class} #{style}'"
     end
   end
 end
