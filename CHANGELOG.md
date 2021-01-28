@@ -2,7 +2,7 @@
 
 # Changelog
 
-## version 1.1.0 to be released
+## version 1.1.0
 
 - Upgrade to Rails 6.1
 - [FEATURE] Change style given a method (#25)
@@ -11,7 +11,7 @@
 - Added documentation
 - Added comma separator option to numbers
 
-## version 1.0.5 to be released
+## version 1.0.5
 
 - Delete rails 5 restriction (#22)
 
