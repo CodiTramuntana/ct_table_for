@@ -1,5 +1,5 @@
 module CtTableFor
-  class << self
+  class Config
     mattr_accessor :table_for_default_class
     mattr_accessor :table_for_wrapper_default_class
     mattr_accessor :table_for_default_action_base_class
@@ -29,9 +29,13 @@ module CtTableFor
     self.table_for_td_default_prefix_class = "td-item"
   end
 
+  def self.config
+    @config||= Config.new
+  end
+
   # this function maps the vars from your app into your engine
   def self.setup(&block)
-    yield self
+    yield config
   end
 
   class Engine < ::Rails::Engine

@@ -29,8 +29,8 @@ module CtTableFor
 
     def table_for model, collection, options: {}
       custom_id = options[:id].present? ? %Q{id="#{options[:id]}"} : ""
-      html = %Q{<div class="table-for-wrapper #{CtTableFor.table_for_wrapper_default_class}">}
-        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.table_for_default_class} #{options[:class]} #{("table-clickable") if options[:clickable]}">}
+      html = %Q{<div class="table-for-wrapper #{CtTableFor.config.table_for_wrapper_default_class}">}
+        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.config.table_for_default_class} #{options[:class]} #{("table-clickable") if options[:clickable]}">}
           html << table_for_header(model, has_actions: options[:actions].present?, options: options)
           html << table_for_content(model, collection, options: options)
         html << %Q{</table>}
@@ -111,7 +111,7 @@ module CtTableFor
                 nil
               end
 
-      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}" class="#{CtTableFor.table_for_td_default_prefix_class}-#{attribute}">}
+      html << %Q{<td data-title="#{model.human_attribute_name("#{attribute}")}" class="#{CtTableFor.config.table_for_td_default_prefix_class}-#{attribute}">}
         case value
         when NilClass
           html << %Q{<i class="fa fa-minus text-muted"></i>}
@@ -121,7 +121,7 @@ module CtTableFor
           if cell_options.include? "currency"
             html << number_to_currency(value)
           elsif cell_options.include? "percentage"
-            html << number_to_percentage(value, precision: CtTableFor.table_for_numeric_percentage_precision)
+            html << number_to_percentage(value, precision: CtTableFor.config.table_for_numeric_percentage_precision)
           else
             html << %Q{#{number_with_delimiter(value)}}
           end
@@ -153,9 +153,9 @@ module CtTableFor
               html << value.to_s
             else
               html << value.to_s.truncate(
-                CtTableFor.table_for_truncate_length,
-                separator: CtTableFor.table_for_truncate_separator,
-                omission: CtTableFor.table_for_truncate_omission
+                CtTableFor.config.table_for_truncate_length,
+                separator: CtTableFor.config.table_for_truncate_separator,
+                omission: CtTableFor.config.table_for_truncate_omission
               )
             end
           end
@@ -168,7 +168,7 @@ module CtTableFor
       html = ""
       size = cell_options.select{ |opt| ["thumb", "original", "small", "medium"].include? opt }.first || "thumb"
 
-      html << image_tag(record.send(attribute).url(size), class: CtTableFor.table_for_cell_for_image_image_class, style: "max-height: 100px;")
+      html << image_tag(record.send(attribute).url(size), class: CtTableFor.config.table_for_cell_for_image_image_class, style: "max-height: 100px;")
       html.html_safe
     end
 
@@ -180,7 +180,7 @@ module CtTableFor
     def table_for_actions(record, options: {} )
       return "" if options[:actions].blank?
       html = ""
-      html << %Q{<td data-link-enabled="false" class="#{CtTableFor.table_for_td_default_prefix_class}-actions">}
+      html << %Q{<td data-link-enabled="false" class="#{CtTableFor.config.table_for_td_default_prefix_class}-actions">}
         html << %Q{<div class="btn-group btn-group-sm" role="group" aria-label="#{I18n.t(:actions, scope: [:table_for]).capitalize}">}
         nesting = (options[:actions][:premodel] || []) + [record]
         buttons = options[:actions][:buttons].map{ |b| b.split("|")}
@@ -201,7 +201,7 @@ module CtTableFor
             else
               # TODO:
               # nesting_custom = nesting + btn_options[0]
-              # label = icon CtTableFor.table_for_action_icons[:custom] if options[:actions][:icons] != false and defined?(FontAwesome)
+              # label = icon CtTableFor.config.table_for_action_icons[:custom] if options[:actions][:icons] != false and defined?(FontAwesome)
               # html << link_to(label, polymorphic_path(nesting_custom), class: "btn btn-default btn-sm")
             end
           end
@@ -214,13 +214,13 @@ module CtTableFor
     def label_for_action action, icons = true
       label = I18n.t(action.to_sym, scope: [:table_for, :buttons]).capitalize
       if icons != false
-        label = %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{CtTableFor.table_for_action_icons[action.to_sym]}"></i>}
+        label = %Q{<i class="#{CtTableFor.config.table_for_icon_font_base_class} #{CtTableFor.config.table_for_icon_font_base_class}-#{CtTableFor.config.table_for_action_icons[action.to_sym]}"></i>}
       end
       label
     end
 
     def class_for_action action, options
-      %Q{#{CtTableFor.table_for_default_action_base_class} #{options.dig(:btn_class, action.to_sym) || CtTableFor.table_for_action_class[action.to_sym]}}
+      %Q{#{CtTableFor.config.table_for_default_action_base_class} #{options.dig(:btn_class, action.to_sym) || CtTableFor.config.table_for_action_class[action.to_sym]}}
     end
 
     def button_for_custom_action record, options, extras
@@ -229,13 +229,13 @@ module CtTableFor
       label = if parsed_extras[:icons].to_s == "false"
         parsed_extras[:title].presence || ""
       else
-        %Q{<i class="#{CtTableFor.table_for_icon_font_base_class} #{CtTableFor.table_for_icon_font_base_class}-#{parsed_extras[:icon]}"></i>}
+        %Q{<i class="#{CtTableFor.config.table_for_icon_font_base_class} #{CtTableFor.config.table_for_icon_font_base_class}-#{parsed_extras[:icon]}"></i>}
       end
       ancestors_list = parsed_extras[:ancestors].presence || ""
       ancestors = ancestors_list.split(",").map do |ancestor|
         record.send(ancestor)
       end
-      custom_action_class = %Q{#{CtTableFor.table_for_default_action_base_class} #{parsed_extras[:class]}}
+      custom_action_class = %Q{#{CtTableFor.config.table_for_default_action_base_class} #{parsed_extras[:class]}}
       link_to(label.html_safe,
               polymorphic_path([parsed_extras[:link], *ancestors, record]),
               class: custom_action_class,
