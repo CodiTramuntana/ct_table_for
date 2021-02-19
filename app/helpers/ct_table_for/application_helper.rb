@@ -235,8 +235,10 @@ module CtTableFor
         record.send(ancestor)
       end
       custom_action_class = %Q{#{CtTableFor.table_for_default_action_base_class} #{parsed_extras[:class]}}
+      following_segments_list = parsed_extras[:following_segments].presence || ""
+      following_segments = following_segments_list.split(",")
       link_to(label.html_safe,
-              polymorphic_path([parsed_extras[:link], *ancestors, record]),
+              polymorphic_path([parsed_extras[:link], *ancestors, record, *following_segments]),
               class: custom_action_class,
               method: parsed_extras[:method],
               title: parsed_extras[:title])
