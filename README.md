@@ -65,6 +65,29 @@ Also, you can specify your own nested resources path by passing an `array` of sy
 <%= table_for Model, @collection, options: { clickable: [:bo, :admin] } %>
 ```
 
+#### Adding custom buttons
+To add custom buttons inside action buttons section you have to insert the key **custom** with the parameters needed for this separated with pipe.
+The parameters for custom option are:
+- method
+- title
+- icon
+- class
+- link
+- ancestors
+- following_segments
+
+
+```erb
+<%= table_for Model, @collection,
+    options: {
+      attributes: %w{ id:sortable name:sortable created_at:sortable  },
+      actions: {
+        buttons: %w{ show edit destroy custom|icon:icon_css_lass_type|class:btn_class|link:previous_segment|method:get|following_segments:nested_resources,second_nested_resources_segment,... }
+        icons: true
+      }
+    }
+
+```
 
 ### Customizing
 
