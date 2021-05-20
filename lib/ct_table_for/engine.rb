@@ -1,18 +1,18 @@
 module CtTableFor
   class Config
-    mattr_accessor :table_for_default_class
-    mattr_accessor :table_for_wrapper_default_class
-    mattr_accessor :table_for_default_action_base_class
-    mattr_accessor :table_for_action_class
-    mattr_accessor :table_for_breakpoint
-    mattr_accessor :table_for_icon_font_base_class
-    mattr_accessor :table_for_action_icons
-    mattr_accessor :table_for_numeric_percentage_precision
-    mattr_accessor :table_for_cell_for_image_image_class
-    mattr_accessor :table_for_truncate_length
-    mattr_accessor :table_for_truncate_separator
-    mattr_accessor :table_for_truncate_omission
-    mattr_accessor :table_for_td_default_prefix_class
+    self.mattr_accessor :table_for_default_class
+    self.mattr_accessor :table_for_wrapper_default_class
+    self.mattr_accessor :table_for_default_action_base_class
+    self.mattr_accessor :table_for_action_class
+    self.mattr_accessor :table_for_breakpoint
+    self.mattr_accessor :table_for_icon_font_base_class
+    self.mattr_accessor :table_for_action_icons
+    self.mattr_accessor :table_for_numeric_percentage_precision
+    self.mattr_accessor :table_for_cell_for_image_image_class
+    self.mattr_accessor :table_for_truncate_length
+    self.mattr_accessor :table_for_truncate_separator
+    self.mattr_accessor :table_for_truncate_omission
+    self.mattr_accessor :table_for_td_default_prefix_class
 
     self.table_for_wrapper_default_class = "table-responsive"
     self.table_for_default_class = "table table-striped table-bordered table-condensed table-hover"
