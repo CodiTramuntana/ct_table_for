@@ -142,7 +142,9 @@ module CtTableFor
         when ActiveRecord::Associations::CollectionProxy
           html << %Q{#{value.count}}
         else
-          if uri?(value)
+          if defined?(ActiveStorage) && value.is_a?(ActiveStorage::Attached::One)
+            html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
+          elsif uri?(value)
             html << link_to(value, value)
           elsif defined?(Paperclip) and value.is_a?(Paperclip::Attachment)
             html << table_for_cell_for_image( record, attribute, cell_options: cell_options )
@@ -167,8 +169,14 @@ module CtTableFor
     def table_for_cell_for_image record, attribute, cell_options: {}
       html = ""
       size = cell_options.select{ |opt| ["thumb", "original", "small", "medium"].include? opt }.first || "thumb"
+      value = record.send(attribute)
+      return html unless value.present?
 
-      html << image_tag(record.send(attribute).url(size), class: CtTableFor.config.table_for_cell_for_image_image_class, style: "max-height: 100px;")
+      if value.is_a?(ActiveStorage::Attached::One)
+        html << image_tag(value, class: CtTableFor.config.table_for_cell_for_image_image_class, style: "max-height: 100px;")
+      else
+        html << image_tag(value.url(size), class: CtTableFor.config.table_for_cell_for_image_image_class, style: "max-height: 100px;")
+      end
       html.html_safe
     end
 
