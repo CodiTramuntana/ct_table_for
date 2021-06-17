@@ -200,9 +200,11 @@ module CtTableFor
             when :show
               html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, polymorphic_path(nesting), class: class_for_action(action, options))
             when :edit
-              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, edit_polymorphic_path(nesting), class: class_for_action(action, options))
+              url_helper = options.dig(:actions, :urls, :edit) || lambda{|obj| edit_polymorphic_path(nesting)}
+              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, url_helper.(nesting), class: class_for_action(action, options))
             when :destroy
-              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, polymorphic_path(nesting),
+              url_helper = options.dig(:actions, :urls, :destroy) || lambda{|obj| polymorphic_path(nesting)}
+              html << link_to(label_for_action(action, options[:actions][:icons]).html_safe, url_helper.(nesting),
                               method: :delete, class: class_for_action(action, options), data: { confirm: I18n.t('table_for.messages.are_you_sure').capitalize })
             when :custom
               html << button_for_custom_action(record, options, extras)
