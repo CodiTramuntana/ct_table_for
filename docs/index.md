@@ -171,7 +171,8 @@ The possible values are:
 * _title_: allows to add a floating text (tooltip)
 * _link_: action link.
 * _method_: method of link. You can pass whatever method you want to be used in the link: GET, POST,...
-*  _ancestors_: ancestor's object methods to be used to fill up link. Very usefull for nested link generation.
+* _ancestors_: ancestor's object methods to be used to fill up link. Very usefull for nested link generation.
+* _target_: the target anchor attribute, can be set to "\_blank" for example.
 
 For example:
 
