@@ -5,6 +5,7 @@
 ## version 1.2.0
 
 - Add _target_ option to custom actions
+- Rework README documentation
 
 ## version 1.1.0
 
