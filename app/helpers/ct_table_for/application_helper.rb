@@ -236,11 +236,13 @@ module CtTableFor
         record.send(ancestor)
       end
       custom_action_class = %Q{#{CtTableFor.config.table_for_default_action_base_class} #{parsed_extras[:class]}}
-      link_to(label.html_safe,
-              polymorphic_path([parsed_extras[:link], *ancestors, record]),
-              class: custom_action_class,
-              method: parsed_extras[:method],
-              title: parsed_extras[:title])
+      options= {
+        class: custom_action_class,
+        method: parsed_extras[:method],
+        title: parsed_extras[:title]
+      }
+      options[:target]= parsed_extras[:target] if parsed_extras[:target].present?
+      link_to(label.html_safe, polymorphic_path([parsed_extras[:link], *ancestors, record]), options)
     end
 
     def uri?(string)

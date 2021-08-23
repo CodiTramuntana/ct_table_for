@@ -2,14 +2,18 @@
 
 # Changelog
 
+## version 1.2.0
+
+- Add _target_ option to custom actions
+
 ## version 1.1.0
 
 - Upgrade to Rails 6.1
 - [FEATURE] Change style given a method (#25)
-- Removed comma separator enforcer
+- Remov comma separator enforcer
 - Now forces locale settings on numbers
-- Added documentation
-- Added comma separator option to numbers
+- Add documentation
+- Add comma separator option to numbers
 
 ## version 1.0.5
 
