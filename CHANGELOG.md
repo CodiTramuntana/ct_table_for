@@ -1,6 +1,8 @@
 # Changelog
 
-# Changelog
+## version 1.2.1
+
+- Polymorphic path now casts route into a symbol (prevents error on Rails 6)
 
 ## version 1.2.0
 
