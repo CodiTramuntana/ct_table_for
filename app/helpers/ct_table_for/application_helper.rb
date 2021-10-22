@@ -252,7 +252,7 @@ module CtTableFor
         title: parsed_extras[:title]
       }
       options[:target]= parsed_extras[:target] if parsed_extras[:target].present?
-      link_to(label.html_safe, polymorphic_path([parsed_extras[:link], *ancestors, record]), options)
+      link_to(label.html_safe, polymorphic_path([parsed_extras[:link]&.to_sym, *ancestors, record]), options)
     end
 
     def uri?(string)
