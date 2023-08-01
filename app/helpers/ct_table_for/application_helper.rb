@@ -30,7 +30,14 @@ module CtTableFor
     def table_for model, collection, options: {}
       custom_id = options[:id].present? ? %Q{id="#{options[:id]}"} : ""
       html = %Q{<div class="table-for-wrapper #{CtTableFor.config.table_for_wrapper_default_class}">}
-        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.config.table_for_default_class} #{options[:class]} #{("table-clickable") if options[:clickable]}">}
+        html << %Q{<table #{custom_id} class="table-for #{CtTableFor.config.table_for_default_class} #{options[:class]} #{("table-clickable") if options[:clickable]}" style="width: 100%;">}
+          if options[:colgroup_widths].present?
+            html << %Q{<colgroup>}
+              options[:colgroup_widths].each do |width|
+                html << %Q{<col style="width: #{width};" span="1">}
+              end
+            html << %Q{</colgroup>}
+          end
           html << table_for_header(model, has_actions: options[:actions].present?, options: options)
           html << table_for_content(model, collection, options: options)
         html << %Q{</table>}
