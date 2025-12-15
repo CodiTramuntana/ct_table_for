@@ -1,5 +1,10 @@
 # Changelog
 
+## version 1.2.2
+
+- Allow really custom actions with full control of URL and HTML options. Each action one proc.
+- Introduce .ruby-version with 3.0.7.
+
 ## version 1.2.1
 
 - Polymorphic path now casts route into a symbol (prevents error on Rails 6)

@@ -216,6 +216,11 @@ module CtTableFor
             end
           end
         end
+
+        options[:actions][:procs]&.each do |proc|
+          html << proc.call(record, self).to_s.html_safe
+        end
+
         html << %Q{</div>}
       html << %Q{</td>}
       html.html_safe
