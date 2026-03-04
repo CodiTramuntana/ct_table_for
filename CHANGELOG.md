@@ -1,8 +1,12 @@
 # Changelog
 
-## version 1.0.5 to be released
+## version 1.0.6
 
-- ...
+- Polymorphic path now casts route into a symbol (prevents error on Rails > 6.0)
+
+## version 1.0.5
+
+- Delete rails 5 restriction (#22)
 
 ## version 1.0.4
 
